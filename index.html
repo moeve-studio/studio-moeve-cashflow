@@ -211,6 +211,7 @@ input[type=text],input[type=number],input[type=month],select{border-radius:4px;b
 }
 
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 <header>
@@ -332,7 +333,7 @@ input[type=text],input[type=number],input[type=month],select{border-radius:4px;b
   <div class="phases" id="phaseGrid"></div>
   <div class="section-title" style="margin-top:16px"><strong>Herleitung</strong><span class="muted small">nicht als Blackbox</span></div>
   <div id="h_derivation" class="hoai-derivation"></div>
-  <div class="pdf-actions"><button id="printHoaiPdfBtn" type="button">HOAI-PDF drucken</button></div>
+  <div class="pdf-actions"><button id="printHoaiPdfBtn" type="button">HOAI-PDF speichern</button></div>
 </div>
 <div class="modal-actions"><span class="muted small">Monatswerte werden vorgeschlagen und können danach frei überschrieben werden.</span><button id="saveProjectBtn">Speichern</button></div>
 </div></dialog>
@@ -769,51 +770,110 @@ function renderTable(){
 
 let editingProjectId=null, editingExpenseId=null, editingAccountId=null, editingReserveId=null;
 
-window.printProjectHoaiPdf=(id)=>{ const p=state.projects.find(x=>x.id===id); if(!p||!p.hoai){ alert('Für diese Projektzeile liegen keine HOAI-Daten vor.'); return; } const phases=p.phases||{}; const result=calculateHoaiProject(p.hoai, phases, p.name||''); const distribution=(result.distribution||[]).filter(item=>item.enabled); const lines=distribution.map(item=>`<tr><td>LPH ${item.phase}</td><td>${item.share.toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})} %</td><td>${fmt(item.fee)}</td></tr>`).join(''); const costsMode=p.hoai.manualCostsToggle?'manuell überschrieben':`${Number(p.hoai.area||0).toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})} m2 × ${fmt(Number(p.hoai.costPerSqm||0))}/m2`; const titleText=`${(p.projectNumber?p.projectNumber+' - ':'') + (p.name||'Projekt')}`; const html=`<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>HOAI-Herleitung - ${String(titleText).replace(/</g,'&lt;')}</title><style>body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#111;margin:0;background:#fff}.page{max-width:780px;margin:0 auto;padding:36px 42px 44px}h1{font-size:22px;margin:0 0 4px;font-weight:650}.sub{font-size:12px;color:#666;text-transform:uppercase;letter-spacing:.06em;margin-bottom:24px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin-bottom:22px}.item{padding:10px 0;border-bottom:1px solid #ddd}.label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}.value{font-size:15px;font-weight:560}.section{margin-top:22px}.section h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 10px}table{width:100%;border-collapse:collapse;margin-top:6px}th,td{border-bottom:1px solid #ddd;padding:10px 8px;font-size:13px;text-align:left;vertical-align:middle}th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#666}td:last-child,th:last-child{text-align:right}.total{margin-top:18px;padding:14px 16px;border:1px solid #d8d2c7;background:#f7f4ee;border-radius:8px}.total .label{margin-bottom:6px}.total .value{font-size:24px}.note{margin-top:18px;font-size:11px;color:#666;line-height:1.5}.printbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:18px}.printbar button{border:1px solid #111;background:#111;color:#fff;padding:10px 12px;border-radius:4px;font-weight:600;cursor:pointer}@media print {.printbar{display:none}.page{padding:0;max-width:none}body{margin:18mm}}</style></head><body><div class="page"><div class="printbar"><button onclick="window.print()">Drucken / PDF sichern</button></div><h1>HOAI-Herleitung</h1><div class="sub">Gebäude und Innenräume</div><div class="meta"><div class="item"><div class="label">Projekt</div><div class="value">${titleText}</div></div><div class="item"><div class="label">Zeile</div><div class="value">${p.lineLabel||'Zeile 1'}</div></div><div class="item"><div class="label">Fläche</div><div class="value">${Number(p.hoai.area||0).toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})} m2</div></div><div class="item"><div class="label">Kostenkennwert</div><div class="value">${fmt(Number(p.hoai.costPerSqm||0))} pro m2</div></div><div class="item"><div class="label">Anrechenbare Kosten netto</div><div class="value">${fmt(result.costs)}</div><div style="font-size:11px;color:#666;margin-top:4px">${costsMode}</div></div><div class="item"><div class="label">Honorarzone / Satzniveau</div><div class="value">${hoaiZoneLabel(p.hoai.zone)} / ${hoaiRateLabel(p.hoai.rate)}</div></div><div class="item"><div class="label">Umbauzuschlag</div><div class="value">${Number(p.hoai.conversionFactor||0).toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})} %</div></div><div class="item"><div class="label">Nebenkosten</div><div class="value">${Number(p.hoai.incidentalCosts||0).toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})} %</div></div></div><div class="section"><h2>Leistungsphasen</h2><table><thead><tr><th>Phase</th><th>Anteil</th><th>Betrag netto</th></tr></thead><tbody>${lines}</tbody></table></div><div class="total"><div class="label">Ermitteltes Honorar netto</div><div class="value">${fmt(result.totalNetFee)}</div></div><div class="note">Dieses Blatt zeigt die externe Herleitung des Honorars aus dem HOAI-Rechner der App. Interne Stundensätze, Stundenableitungen und Cashflow-Informationen sind nicht enthalten.</div></div></body></html>`; const w=window.open('','_blank','noopener,noreferrer'); if(!w){ alert('Das PDF-Fenster konnte nicht geöffnet werden. Bitte Pop-ups für diese Seite erlauben.'); return; } w.document.open(); w.document.write(html); w.document.close(); };
-window.addProjectLine=(id)=>{ const base=state.projects.find(x=>x.id===id); if(!base) return; saveCheckpoint('Projektzeile angelegt'); const next=nextProjectLineOrder(base); const line=ensureProject({id:uid(), accountId:base.accountId, projectNumber:base.projectNumber, lineOrder:next, lineLabel:`Zeile ${next}`, name:base.name, status:base.status, type:base.type, totalBudget:0, invoicedAmount:0, startYear:horizon[0].year, startMonth:horizon[0].month, duration:12, hours:0, rate:base.rate||65, note:'', phases:JSON.parse(JSON.stringify(base.phases||{})), hoai:JSON.parse(JSON.stringify(base.hoai||{})), manualPlan:{}, invoiceMarks:{}}); line.manualPlan=generateProjectPlan(line); state.projects.push(line); renderAll(); };
-window.editProject=(id)=>{ const p=state.projects.find(x=>x.id===id); if(!p) return; projectDialogSync={budget:true,hours:true,rate:true}; editingProjectId=id; $('projectDialogTitle').textContent='Projektzeile bearbeiten'; $('p_account').value=p.accountId; $('p_number').value=p.projectNumber; $('p_name').value=p.name; $('p_status').value=p.status||'beauftragt'; $('p_lineLabel').value=p.lineLabel||'Zeile 1'; $('p_type').value=p.type||'Pauschal'; $('p_budget').value=p.totalBudget; $('p_invoiced').value=p.invoicedAmount; $('p_startMonth').innerHTML=monthOptions(p.startMonth); $('p_startYear').innerHTML=yearOptions(p.startYear); $('p_duration').value=p.duration||12; $('p_hours').value=p.hours||0; $('p_rate').value=p.rate||65; $('p_note').value=p.note||''; fillHoaiForm(p.hoai); renderPhases(p.phases); bindPhaseInputs(); bindHoaiInputs(); refreshProjectTypeUI(); $('projectDialog').showModal(); };
-window.deleteProject=(id)=>{ const target=state.projects.find(p=>p.id===id); if(!target) return; const group=state.projects.filter(p=>projectGroupKey(p)===projectGroupKey(target)); const msg=group.length===1?'Dies ist die letzte Zeile des Projekts. Wirklich das gesamte Projekt löschen?':'Projektzeile wirklich löschen?'; if(!confirm(msg)) return; saveCheckpoint('Projekt gelöscht'); const oldNumber=target.projectNumber, oldName=target.name; state.projects=state.projects.filter(p=>p.id!==id); renumberGroupLines(oldNumber, oldName); renderAll(); };
-window.updateProjectMonth=(id,key,val)=>{ const p=state.projects.find(x=>x.id===id); if(!p) return; p.manualPlan=p.manualPlan||{}; p.manualPlan[key]=Number(val||0); renderAll(); };
-window.toggleProjectInvoiceMark=(id,key)=>{ const p=state.projects.find(x=>x.id===id); if(!p) return; p.invoiceMarks=p.invoiceMarks||{}; if(p.invoiceMarks[key]) delete p.invoiceMarks[key]; else p.invoiceMarks[key]=true; renderAll(); };
+window.printProjectHoaiPdf=(id)=>{
+  const p=state.projects.find(x=>x.id===id);
+  if(!p||!p.hoai){ alert('Für diese Projektzeile liegen keine HOAI-Daten vor.'); return; }
+  if(!(window.jspdf && window.jspdf.jsPDF)){ alert('Die PDF-Bibliothek konnte nicht geladen werden. Bitte Internetverbindung prüfen und die Seite neu laden.'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({orientation:'p', unit:'mm', format:'a4'});
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const margin = 18;
+  const contentW = pageW - margin*2;
+  let y = margin;
 
-window.addExpenseLine=(id)=>{ const base=state.expenses.find(x=>x.id===id); if(!base) return; saveCheckpoint('Ausgabezeile angelegt'); const next=nextExpenseLineOrder(base); const line=ensureExpense({id:uid(), expenseNumber:base.expenseNumber, category:base.category, label:base.label, lineOrder:next, lineLabel:`Zeile ${next}`, amount:0, type:base.type, rhythm:base.rhythm, startYear:horizon[0].year, startMonth:horizon[0].month, endYear:horizon[horizon.length-1].year, endMonth:horizon[horizon.length-1].month, note:'', months:{}}); line.months=expenseMonthMap(line); state.expenses.push(line); renderAll(); };
-window.editExpense=(id)=>{ const e=state.expenses.find(x=>x.id===id); if(!e) return; editingExpenseId=id; $('expenseDialogTitle').textContent='Ausgabezeile bearbeiten'; $('e_number').value=(e.expenseNumber===''?'':e.expenseNumber); $('e_category').value=e.category; $('e_label').value=e.label||''; $('e_lineLabel').value=e.lineLabel||'Zeile 1'; $('e_amount').value=Math.abs(e.amount||0); $('e_type').value=e.type; $('e_rhythm').value=e.rhythm; $('e_startMonth').innerHTML=monthOptions(e.startMonth); $('e_startYear').innerHTML=yearOptions(e.startYear); $('e_endMonth').innerHTML=monthOptions(e.endMonth); $('e_endYear').innerHTML=yearOptions(e.endYear); $('expenseDialog').showModal(); };
-window.deleteExpense=(id)=>{ const target=state.expenses.find(e=>e.id===id); if(!target) return; const group=state.expenses.filter(e=>expenseGroupKey(e)===expenseGroupKey(target)); const msg=group.length===1?'Dies ist die letzte Zeile der Ausgabe. Wirklich die gesamte Ausgabe löschen?':'Ausgabezeile wirklich löschen?'; if(!confirm(msg)) return; saveCheckpoint('Ausgabe gelöscht'); const oldNumber=target.expenseNumber, oldLabel=target.label; state.expenses=state.expenses.filter(e=>e.id!==id); renumberExpenseGroupLines(oldNumber, oldLabel); renderAll(); };
-window.updateExpenseMonth=(id,key,val)=>{ const e=state.expenses.find(x=>x.id===id); if(!e) return; e.months=e.months||{}; e.months[key]=-Math.abs(Number(val||0)); renderAll(); };
+  const phases=p.phases||{};
+  const result=calculateHoaiProject(p.hoai, phases, p.name||'');
+  const distribution=(result.distribution||[]).filter(item=>item.enabled);
+  const costsMode=p.hoai.manualCostsToggle?'manuell überschrieben':`${Number(p.hoai.area||0).toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})} m² × ${fmt(Number(p.hoai.costPerSqm||0))}/m²`;
+  const titleText=`${(p.projectNumber?p.projectNumber+' - ':'') + (p.name||'Projekt')}`;
+  const phaseSum = distribution.reduce((s,item)=>s+Number(item.fee||0),0);
 
-window.editAccount=(id)=>{ const a=state.accounts.find(x=>x.id===id); if(!a) return; editingAccountId=id; $('accountDialogTitle').textContent='Konto bearbeiten'; $('a_name').value=a.name; $('a_balance').value=a.openingBalance; $('accountDialog').showModal(); };
-window.deleteAccount=(id)=>{ if(state.accounts.length<=1){ alert('Mindestens ein Konto muss bestehen bleiben.'); return; } if(!confirm('Konto wirklich löschen?')) return; saveCheckpoint('Konto gelöscht'); state.accounts=state.accounts.filter(a=>a.id!==id); renderAll(); };
+  const line = (x1,y1,x2,y2)=>doc.line(x1,y1,x2,y2);
+  const text = (t,x,yy,opts={})=>doc.text(String(t),x,yy,opts);
+  const right = (t,x,yy)=>doc.text(String(t),x,yy,{align:'right'});
+  const ensureSpace = (need)=>{ if(y + need > pageH - margin){ doc.addPage(); y = margin; } };
+  const euro = v => fmt(Number(v||0));
+  const pct = v => `${Number(v||0).toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})} %`;
+  const addMetaRow = (label, value, sub='')=>{
+    ensureSpace(sub ? 15 : 11);
+    doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(102,102,102);
+    text(label.toUpperCase(), margin, y);
+    doc.setFont('helvetica','bold'); doc.setFontSize(11.5); doc.setTextColor(17,17,17);
+    const lines = doc.splitTextToSize(String(value), contentW);
+    y += 5;
+    text(lines, margin, y);
+    y += lines.length * 5;
+    if(sub){
+      doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(102,102,102);
+      const subs = doc.splitTextToSize(String(sub), contentW);
+      text(subs, margin, y);
+      y += subs.length * 4.3;
+    }
+    y += 2.5;
+    doc.setDrawColor(220,220,220);
+    line(margin, y, pageW-margin, y);
+    y += 5;
+  };
 
-window.editReserve=(id)=>{ const r=state.reserves.find(x=>x.id===id); if(!r) return; editingReserveId=id; $('reserveDialogTitle').textContent='Rücklage bearbeiten'; $('r_name').value=r.name; $('r_value').value=r.value; $('reserveDialog').showModal(); };
-window.deleteReserve=(id)=>{ if(!confirm('Rücklage wirklich löschen?')) return; saveCheckpoint('Rücklage gelöscht'); state.reserves=state.reserves.filter(r=>r.id!==id); renderAll(); };
+  doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(17,17,17);
+  text('HOAI-Herleitung', margin, y);
+  y += 6;
+  doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(102,102,102);
+  text('Gebäude und Innenräume', margin, y);
+  y += 8;
+  doc.setDrawColor(180,180,180); line(margin, y, pageW-margin, y); y += 7;
 
-$('addProjectBtn').onclick=()=>{ projectDialogSync={budget:true,hours:true,rate:true}; editingProjectId=null; $('projectDialogTitle').textContent='Projekt / Zeile anlegen'; $('p_account').value=state.accounts[0].id; $('p_number').value=''; $('p_name').value=''; $('p_status').value='beauftragt'; $('p_lineLabel').value='Zeile 1'; $('p_type').value='HOAI'; $('p_budget').value='0'; $('p_invoiced').value='0'; $('p_startMonth').innerHTML=monthOptions(horizon[0].month); $('p_startYear').innerHTML=yearOptions(horizon[0].year); $('p_duration').value='12'; $('p_hours').value='0'; $('p_rate').value='65'; $('p_note').value=''; fillHoaiForm({hourlyRate:95}); renderPhases(); bindPhaseInputs(); bindHoaiInputs(); refreshProjectTypeUI(); $('projectDialog').showModal(); };
-$('saveProjectBtn').onclick=()=>{ const prev=editingProjectId ? state.projects.find(p=>p.id===editingProjectId) : null; const startYear=Number($('p_startYear').value||horizon[0].year); const startMonth=Number($('p_startMonth').value||horizon[0].month); const phases=getPhaseDataFromForm(); const hoaiData=getHoaiFormData(); const hoaiResult=calculateHoaiProject(hoaiData, phases, $('p_name').value.trim()); const derivedDuration=Object.values(phases).reduce((sum,item)=>item&&item.enabled?sum+Math.max(1,Number(item.duration||1)):sum,0)||Number($('p_duration').value||12); const project=ensureProject({id:editingProjectId||uid(), accountId:$('p_account').value, projectNumber:$('p_number').value.trim(), lineOrder:(prev&&prev.lineOrder)?prev.lineOrder:1, lineLabel:$('p_lineLabel').value.trim()||'Zeile 1', name:$('p_name').value.trim(), status:normalizeStatus($('p_status').value), type:$('p_type').value, totalBudget:Number($('p_budget').value||0), invoicedAmount:Number($('p_invoiced').value||0), startYear, startMonth, duration:($('p_type').value==='HOAI'?derivedDuration:Number($('p_duration').value||12)), hours:Number($('p_hours').value||0), rate:Number($('p_rate').value||65), note:$('p_note').value.trim(), phases:phases, hoai:Object.assign({}, hoaiData, {derivation:hoaiResult.derivation,externalDerivation:hoaiResult.externalDerivation,hoursBudget:hoaiResult.hoursBudget,totalNetFee:hoaiResult.totalNetFee}), manualPlan:{}, invoiceMarks:(prev&&prev.invoiceMarks)?prev.invoiceMarks:{}}); if(!project.name){ alert('Projektname fehlt.'); return; } saveCheckpoint(editingProjectId?'Projekt geändert':'Projekt angelegt'); if(project.type==='HOAI'){ project.totalBudget=Number($('p_budget').value||hoaiResult.totalNetFee); project.rate=Number($('p_rate').value||hoaiData.hourlyRate||0); project.hours=Number($('p_hours').value||0); } if(project.type==='Stunden'){ project.hours=Number($('p_hours').value||hoaiResult.hoursBudget||0); project.rate=Number($('p_rate').value||hoaiData.hourlyRate||0); project.totalBudget=Number($('p_budget').value||0); if(project.hours>0 && project.rate>0 && !$('p_budget').value){ project.totalBudget=project.hours*project.rate; } } if(project.type==='Pauschal'){ project.totalBudget=Number($('p_budget').value||hoaiResult.totalNetFee); project.rate=Number($('p_rate').value||hoaiData.hourlyRate||0); project.hours=Number($('p_hours').value||0); } project.manualPlan=generateProjectPlan(project); if(editingProjectId){ state.projects=state.projects.map(p=>p.id===editingProjectId?project:p); } else { project.lineOrder=nextProjectLineOrder(project); if(!$('p_lineLabel').value.trim()) project.lineLabel=`Zeile ${project.lineOrder}`; state.projects.push(project); } $('projectDialog').close(); renderAll(); };
+  addMetaRow('Projekt', titleText);
+  addMetaRow('Zeile', p.lineLabel||'Zeile 1');
+  addMetaRow('Fläche', `${Number(p.hoai.area||0).toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})} m²`);
+  addMetaRow('Kostenkennwert', `${euro(Number(p.hoai.costPerSqm||0))} pro m²`);
+  addMetaRow('Anrechenbare Kosten netto', euro(result.costs), costsMode);
+  addMetaRow('Honorarzone / Satzniveau', `${hoaiZoneLabel(p.hoai.zone)} / ${hoaiRateLabel(p.hoai.rate)}`);
+  addMetaRow('Umbauzuschlag', pct(p.hoai.conversionFactor||0));
+  addMetaRow('Nebenkosten', pct(p.hoai.incidentalCosts||0));
 
-$('addExpenseBtn').onclick=()=>{ editingExpenseId=null; $('expenseDialogTitle').textContent='Ausgabe / Zeile anlegen'; $('e_number').value=''; $('e_category').value='Miete'; $('e_label').value=''; $('e_lineLabel').value='Zeile 1'; $('e_amount').value='0'; $('e_type').value='fixed'; $('e_rhythm').value='monthly'; $('e_startMonth').innerHTML=monthOptions(horizon[0].month); $('e_startYear').innerHTML=yearOptions(horizon[0].year); $('e_endMonth').innerHTML=monthOptions(horizon[horizon.length-1].month); $('e_endYear').innerHTML=yearOptions(horizon[horizon.length-1].year); $('expenseDialog').showModal(); };
-$('saveExpenseBtn').onclick=()=>{ const prev=editingExpenseId ? state.expenses.find(x=>x.id===editingExpenseId) : null; const e={id:editingExpenseId||uid(), expenseNumber:$('e_number').value===''?'':Number($('e_number').value), category:$('e_category').value, label:$('e_label').value.trim(), lineOrder:(prev&&prev.lineOrder)?prev.lineOrder:1, lineLabel:$('e_lineLabel').value.trim()||'Zeile 1', amount:Number($('e_amount').value||0), type:$('e_type').value, rhythm:$('e_rhythm').value}; const sy=Number($('e_startYear').value||horizon[0].year), sm=Number($('e_startMonth').value||horizon[0].month), ey=Number($('e_endYear').value||horizon[horizon.length-1].year), em=Number($('e_endMonth').value||horizon[horizon.length-1].month); Object.assign(e,{startYear:sy,startMonth:sm,endYear:ey,endMonth:em}); saveCheckpoint(editingExpenseId?'Ausgabe geändert':'Ausgabe angelegt'); const expense=ensureExpense(e); expense.months=expenseMonthMap(expense); if(editingExpenseId){ state.expenses=state.expenses.map(x=>x.id===editingExpenseId?expense:x); } else { expense.lineOrder=nextExpenseLineOrder(expense); if(!$('e_lineLabel').value.trim()) expense.lineLabel=`Zeile ${expense.lineOrder}`; state.expenses.push(expense); } $('expenseDialog').close(); renderAll(); };
+  ensureSpace(18);
+  doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(102,102,102);
+  text('LEISTUNGSPHASEN', margin, y); y += 6;
+  doc.setFillColor(247,244,238);
+  doc.rect(margin, y, contentW, 8, 'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(90,90,90);
+  text('Phase', margin+2, y+5.2);
+  text('Anteil', margin+70, y+5.2);
+  right('Betrag netto', pageW-margin-2, y+5.2);
+  y += 8;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(17,17,17);
+  distribution.forEach(item=>{
+    ensureSpace(8);
+    doc.setDrawColor(223,223,223);
+    line(margin, y, pageW-margin, y);
+    y += 5.5;
+    text(`LPH ${item.phase}`, margin+2, y);
+    text(`${Number(item.share||0).toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1})} %`, margin+70, y);
+    right(euro(item.fee), pageW-margin-2, y);
+    y += 3.2;
+  });
+  doc.setDrawColor(223,223,223); line(margin, y, pageW-margin, y); y += 8;
 
-$('addAccountBtn').onclick=()=>{ editingAccountId=null; $('accountDialogTitle').textContent='Konto anlegen'; $('a_name').value=''; $('a_balance').value=''; $('accountDialog').showModal(); };
-$('saveAccountBtn').onclick=()=>{ const name=$('a_name').value.trim(); if(!name){ alert('Kontoname fehlt.'); return; } saveCheckpoint(editingAccountId?'Konto geändert':'Konto angelegt'); const account={id:editingAccountId||uid(), name, openingBalance:Number($('a_balance').value||0)}; if(editingAccountId) state.accounts=state.accounts.map(a=>a.id===editingAccountId?account:a); else state.accounts.push(account); $('accountDialog').close(); renderAll(); };
+  ensureSpace(24);
+  doc.setFillColor(247,244,238);
+  doc.roundedRect(margin, y, contentW, 18, 2, 2, 'F');
+  doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(102,102,102);
+  text('Ermitteltes Honorar netto', margin+4, y+6.5);
+  doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.setTextColor(17,17,17);
+  right(euro(result.totalNetFee), pageW-margin-4, y+11.5);
+  y += 25;
 
-$('addReserveBtn').onclick=()=>{ editingReserveId=null; $('reserveDialogTitle').textContent='Rücklage anlegen'; $('r_name').value=''; $('r_value').value=''; $('reserveDialog').showModal(); };
-$('saveReserveBtn').onclick=()=>{ const name=$('r_name').value.trim(); if(!name){ alert('Name fehlt.'); return; } saveCheckpoint(editingReserveId?'Rücklage geändert':'Rücklage angelegt'); const reserve={id:editingReserveId||uid(), name, value:Number($('r_value').value||0)}; if(editingReserveId) state.reserves=state.reserves.map(r=>r.id===editingReserveId?reserve:r); else state.reserves.push(reserve); $('reserveDialog').close(); renderAll(); };
+  ensureSpace(16);
+  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(102,102,102);
+  const note = 'Dieses Blatt zeigt die externe Herleitung des Honorars aus dem HOAI-Rechner der App. Interne Stundensätze, Stundenableitungen und Cashflow-Informationen sind nicht enthalten.';
+  const noteLines = doc.splitTextToSize(note, contentW);
+  text(noteLines, margin, y);
 
-$('applyBaseMonthBtn').onclick=()=>{ state.ui.baseMonth=Number($('baseMonthSelect').value); state.ui.baseYear=Number($('baseYearSelect').value); renderAll(); };
-$('p_type').onchange=()=>{ projectDialogSync={budget:true,hours:true,rate:true}; refreshProjectTypeUI(); };
-$('p_budget').addEventListener('input',()=>{ projectDialogSync.budget=false; });
-$('p_hours').addEventListener('input',()=>{ projectDialogSync.hours=false; calcAutoBudget(); });
-$('p_rate').addEventListener('input',()=>{ projectDialogSync.rate=false; calcAutoBudget(); updateHoaiUi(); });
-$('toggleAnnounced').onchange=e=>{ state.ui.showAnnounced=!!e.target.checked; renderAll(); };
-$('toggleAnnouncedForecast').onchange=e=>{ state.ui.includeAnnouncedForecast=!!e.target.checked; renderAll(); };
-$('toggleCompleted').onchange=e=>{ state.ui.showCompleted=!!e.target.checked; renderAll(); };
-$('nextMonthBtn').onclick=()=>{ saveCheckpoint('Monat weitergeschoben'); const moved=addMonths(state.ui.baseYear, state.ui.baseMonth,1); state.ui.baseYear=moved.year; state.ui.baseMonth=moved.month; renderAll(); };
-$('exportBtn').onclick=()=>{ const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='buero_cashflow_integration_v1.json'; a.click(); URL.revokeObjectURL(url); };
-$('importBtn').onclick=()=>$('importFile').click();
-$('importFile').onchange=async e=>{ const file=e.target.files[0]; if(!file) return; const txt=await file.text(); const data=JSON.parse(txt); saveCheckpoint('Import'); applyLoadedState(data); renderAll(); e.target.value=''; };
-$('resetBtn').onclick=()=>{ if(!confirm('Wirklich alles löschen?')) return; saveCheckpoint('Alles gelöscht'); applyLoadedState(null); renderAll(); };
-$('undoBtn').onclick=undoAction; $('redoBtn').onclick=redoAction;
-
+  const safe = (titleText || 'HOAI-Herleitung').replace(/[\\/:*?"<>|]+/g,' ').replace(/\s+/g,' ').trim();
+  doc.save(`${safe} - HOAI-Herleitung.pdf`);
+};
 $('printHoaiPdfBtn').onclick=()=>{ const tempPhases=getPhaseDataFromForm(); const tempHoai=getHoaiFormData(); const tempResult=calculateHoaiProject(tempHoai,tempPhases,$('p_name').value.trim()); const tempProject={id:'temp',projectNumber:$('p_number').value.trim(),name:$('p_name').value.trim(),lineLabel:$('p_lineLabel').value.trim()||'Zeile 1',phases:tempPhases,hoai:Object.assign({},tempHoai,{externalDerivation:tempResult.externalDerivation})}; state.projects.push(tempProject); try{ printProjectHoaiPdf('temp'); } finally { state.projects=state.projects.filter(p=>p.id!=='temp'); } };
 
 renderAll();
