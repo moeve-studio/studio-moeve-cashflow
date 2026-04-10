@@ -218,6 +218,49 @@ input[type=text],input[type=number],input[type=month],select{border-radius:4px;b
   #topMetrics .value,#dashboardMetrics .value{font-size:23px}
 }
 
+
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.personnel-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.personnel-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.personnel-box{background:linear-gradient(180deg,var(--soft-2),var(--soft));border:1px solid rgba(21,21,21,.05);border-radius:8px;padding:12px}
+.personnel-box .label{margin-bottom:6px}.personnel-box .value{font-size:20px}
+.personnel-table-wrap{overflow:auto;border:1px solid rgba(21,21,21,.07);border-radius:8px;background:#fff}
+.personnel-table{border-collapse:collapse;width:max-content;min-width:100%}
+.personnel-table th,.personnel-table td{border-bottom:1px solid var(--line);padding:8px 8px;white-space:nowrap;font-size:12px;vertical-align:top}
+.personnel-table th{background:#f3efe7;position:sticky;top:0;z-index:1;text-align:center}
+.personnel-sticky{position:sticky;left:0;background:#fff;z-index:1;min-width:270px;max-width:270px;text-align:left}
+.personnel-section td{background:#f5f1e8;font-weight:700}
+.personnel-summary-row td{background:#f7f4ee;font-weight:700}
+.personnel-name{font-weight:700;margin-bottom:6px}
+.personnel-subinputs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.personnel-subinputs.single{grid-template-columns:1fr}
+.personnel-mini-actions{display:flex;gap:6px;flex-wrap:wrap}
+.personnel-mini-actions button{padding:5px 7px;font-size:11px;border-radius:3px}
+.personnel-cell{display:grid;gap:4px;min-width:86px}
+.personnel-toggle{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer;font-size:12px}
+.personnel-toggle.inactive{background:#efefef;color:var(--muted)}
+.personnel-input{width:100%;text-align:right;padding:5px 6px;border-radius:4px;border:1px solid rgba(21,21,21,.08);background:#fff;font-size:12px}
+.personnel-input.inactive{background:#efefef;color:#8a857d}
+.personnel-carry{font-size:10px;color:var(--muted);min-height:12px}
+.stundensatz-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+.stundensatz-value{font-size:42px;font-weight:800;letter-spacing:-.03em}
+.stundensatz-preview{border:1px solid var(--line);background:var(--soft);border-radius:14px;padding:14px;margin:10px 0 14px}
+.stundensatz-kicker{font-size:12px;color:var(--muted);margin-bottom:4px}
+.stundensatz-big{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.archive-list{display:grid;gap:10px}
+.archive-item{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.archive-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.archive-year{font-weight:700;font-size:16px}
+.archive-badge{font-size:11px;color:var(--good);border:1px solid rgba(46,107,68,.22);background:rgba(46,107,68,.08);padding:5px 8px;border-radius:999px;white-space:nowrap}
+.archive-rate{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+.archive-meta{font-size:13px;color:var(--muted);display:grid;gap:4px;margin-bottom:12px}
+.archive-actions{display:flex;flex-wrap:wrap;gap:8px}
+.empty{color:var(--muted);font-size:14px;border:1px dashed var(--line);border-radius:14px;padding:14px;background:rgba(255,255,255,.5)}
+.formula{font-size:14px;color:var(--muted)}
+.year-pill{display:inline-flex;align-items:center;gap:8px;width:fit-content;border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:7px 12px;font-size:13px;color:var(--muted)}
+@media (max-width:1024px){.grid5,.personnel-summary-grid,.stundensatz-grid{grid-template-columns:1fr 1fr}.personnel-sticky{min-width:240px;max-width:240px}}
+@media (max-width:767px){.grid5,.personnel-summary-grid,.stundensatz-grid{grid-template-columns:1fr}.personnel-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}.personnel-table th{position:static}.personnel-sticky{position:static;min-width:220px;max-width:none}.stundensatz-value{font-size:34px}.stundensatz-big{font-size:28px}}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -255,7 +298,7 @@ input[type=text],input[type=number],input[type=month],select{border-radius:4px;b
 
   <div class="card">
     <div class="section-title"><strong>Liquiditäts-Dashboard</strong><span class="muted small">Reichweite auf Basis verfügbarer Liquidität.</span></div>
-    <div class="grid4" id="dashboardMetrics"></div>
+    <div class="grid5" id="dashboardMetrics"></div>
     <div id="dashboardStatus"></div>
     <div class="chart-wrap">
       <div id="reachabilityBand"></div>
@@ -275,6 +318,54 @@ input[type=text],input[type=number],input[type=month],select{border-radius:4px;b
   <div class="card">
     <div class="section-title"><strong>Rücklagen</strong><span class="muted small">Gebundene Liquidität</span></div>
     <div id="reserveList"></div>
+  </div>
+
+  
+
+  <div class="card">
+    <div class="section-title"><strong><button id="togglePersonnelSectionBtn" class="inline-btn" type="button">▾ Personal</button></strong><span class="muted small">Eigenständiger Personalblock. Wirkt auf Kennzahl und Jahresstundenbudget, nicht auf die Hauptmatrix.</span></div>
+    <div id="personnelSectionBody">
+      <div class="personnel-summary-grid" id="personnelSummary"></div>
+      <div class="personnel-toolbar">
+        <button id="togglePersonnelBtn" type="button">Details öffnen</button>
+        <button id="addEmployeeBtn" type="button">Mitarbeiter hinzufügen</button>
+        <button id="addPersonnelExtraBtn" type="button">Zusatzkostenzeile hinzufügen</button>
+      </div>
+      <div id="personnelTableWrap" class="personnel-table-wrap" style="display:none"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title"><strong><button id="toggleHourlyRateSectionBtn" class="inline-btn" type="button">▾ Bürostundensatz</button></strong><span class="muted small">Harter Jahreswert auf Basis Jahresgesamtkosten geteilt durch gesamte geleistete Jahresstunden.</span></div>
+    <div id="hourlyRateSectionBody">
+    <div class="stundensatz-grid">
+      <section class="card" style="margin:0;box-shadow:none">
+        <h2 style="margin:0 0 14px;font-size:18px">Aktiver Jahreswert</h2>
+        <div class="year-pill" id="activeYearPill">Kein aktiver Jahresstand</div>
+        <div class="stundensatz-value" id="activeRate">– € / h</div>
+        <div class="formula" id="activeFormula">Bitte einen Jahresstand anlegen oder aktivieren.</div>
+      </section>
+      <section class="card" style="margin:0;box-shadow:none">
+        <h2 style="margin:0 0 14px;font-size:18px">Jahresstand eingeben</h2>
+        <div class="form-grid" style="grid-template-columns:1fr 1fr 1fr;">
+          <div><label>Jahr</label><input id="sh_year" inputmode="numeric" placeholder="2026"></div>
+          <div><label>Gesamte geleistete Jahresstunden</label><input id="sh_hours" inputmode="decimal" placeholder="z. B. 9800"></div>
+          <div><label>Jahresgesamtkosten brutto</label><input id="sh_costs" inputmode="decimal" placeholder="z. B. 820000"></div>
+        </div>
+        <div class="muted small" id="sh_hoursHint" style="margin-top:-6px;margin-bottom:10px"></div>
+        <div class="stundensatz-preview">
+          <div class="stundensatz-kicker">Ergebnis</div>
+          <div class="stundensatz-big" id="previewRate">– € / h</div>
+        </div>
+        <div class="right-tools"><button id="saveHourlyRateBtn" type="button">Speichern</button><button id="resetHourlyRateBtn" type="button">Leeren</button></div>
+        <div class="error" id="hourlyRateError"></div>
+      </section>
+    </div>
+    <div style="margin-top:16px">
+      <h2 style="font-size:18px;margin:0 0 14px">Archiv</h2>
+      <div id="hourlyRateArchive" class="archive-list"></div>
+    </div>
+    </div>
   </div>
 
   <div class="card">
@@ -434,6 +525,26 @@ let horizon=[], monthMap={};
 let projectDialogSync={budget:true,duration:true,hours:true,rate:true};
 function rebuildHorizon(){ horizon=next24MonthsFrom(state.ui.baseYear, state.ui.baseMonth); monthMap=Object.fromEntries(horizon.map(h=>[h.key,h])); }
 
+function makePersonnelMonth(active=false,value=''){ return {active:!!active,value:value}; }
+function makeEmployee(firstName='',lastName='',weeklyHours=''){ return {id:uid(),type:'employee',firstName,lastName,weeklyHours:weeklyHours===''?'':Number(weeklyHours),months:Array.from({length:24},()=>makePersonnelMonth(false,''))}; }
+function makePersonnelExtra(label='Neue Zusatzkostenzeile'){ return {id:uid(),type:'extra',label,months:Array.from({length:24},()=>makePersonnelMonth(true,''))}; }
+function defaultHourlyRateModule(){ return {activeYear:null,items:[]}; }
+function normalizePersonnelRowMonths(months){ const arr=Array.isArray(months)?months.slice(0,24):[]; while(arr.length<24) arr.push(makePersonnelMonth(false,'')); return arr.map(cell=>({active:!!cell.active,value:(cell&&cell.value!==undefined)?cell.value:''})); }
+function defaultPersonnelState(){ return {collapsed:true,employees:[],extras:[{id:uid(),type:'extra',label:'Steuerbüro / Lohnabrechnung',months:Array.from({length:24},()=>makePersonnelMonth(true,''))}]}; }
+function normalizePersonnelState(input){ const src=input&&typeof input==='object'?input:{}; return {collapsed:src.collapsed!==undefined?!!src.collapsed:true,employees:Array.isArray(src.employees)?src.employees.map(e=>({id:e.id||uid(),type:'employee',firstName:e.firstName||'',lastName:e.lastName||'',weeklyHours:(e.weeklyHours===undefined||e.weeklyHours==='')?'':Number(e.weeklyHours||0),months:normalizePersonnelRowMonths(e.months)})):[],extras:Array.isArray(src.extras)?src.extras.map(x=>({id:x.id||uid(),type:'extra',label:x.label||'Zusatzkosten',months:normalizePersonnelRowMonths(x.months)})):[{id:uid(),type:'extra',label:'Steuerbüro / Lohnabrechnung',months:Array.from({length:24},()=>makePersonnelMonth(false,''))}]}; }
+function normalizeHourlyRateState(input){ const src=input&&typeof input==='object'?input:{}; return {activeYear:src.activeYear||null,items:Array.isArray(src.items)?src.items.map(item=>({year:Number(item.year),costs:Number(item.costs||0),hours:Number(item.hours||0),rate:Number(item.rate||0),updatedAt:item.updatedAt||new Date().toISOString()})).filter(item=>Number.isFinite(item.year)&&item.year>1999):[]}; }
+function parseLooseNumber(value){ if(value===''||value===null||value===undefined) return ''; const normalized=String(value).replace(/\./g,'').replace(',', '.').replace(/\s+/g,''); const n=Number(normalized); return Number.isFinite(n)?n:''; }
+function formatNumberDE(value,digits=0){ return new Intl.NumberFormat('de-DE',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(Number(value||0)); }
+function formatMonthInputValue(value){ return value===''||value===null||value===undefined?'':String(value).replace('.',','); }
+function formatPersonnelMoney(value){ return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(Number(value||0)); }
+function sortPersonnelEmployees(){ state.personnel.employees.sort((a,b)=>{ const aLast=(a.lastName||'').toLocaleLowerCase('de'); const bLast=(b.lastName||'').toLocaleLowerCase('de'); if(aLast!==bLast) return aLast.localeCompare(bLast,'de'); return (a.firstName||'').toLocaleLowerCase('de').localeCompare((b.firstName||'').toLocaleLowerCase('de'),'de'); }); }
+function computePersonnelRow(row){ const effective=[]; const explicit=[]; let lastKnown=0; let hasKnown=false; for(let i=0;i<24;i++){ const cell=(row.months||[])[i]||makePersonnelMonth(false,''); const parsed=parseLooseNumber(cell.value); if(cell.active){ if(parsed!==''){ lastKnown=parsed; hasKnown=true; explicit.push(parsed); effective.push(parsed); } else { explicit.push(''); effective.push(hasKnown?lastKnown:0); } } else { explicit.push(parsed===''?'':parsed); effective.push(0); } } const rolling12=effective.slice(0,12).reduce((a,b)=>a+b,0); const annualHours=row.type==='employee'?Math.round(Number(row.weeklyHours||0)*52):0; return {effective,explicit,rolling12,annualHours}; }
+function computePersonnelTotals(){ sortPersonnelEmployees(); const rows=[...state.personnel.employees,...state.personnel.extras]; const rowCalcs=new Map(rows.map(r=>[r.id,computePersonnelRow(r)])); const monthTotals=Array.from({length:24},(_,i)=>rows.reduce((sum,row)=>sum+Number((rowCalcs.get(row.id)||{effective:[]}).effective[i]||0),0)); const rolling12=monthTotals.slice(0,12).reduce((a,b)=>a+b,0); const currentMonth=monthTotals[0]||0; const annualHoursBudget=state.personnel.employees.reduce((sum,row)=>sum+Number((rowCalcs.get(row.id)||{annualHours:0}).annualHours||0),0); return {rowCalcs,monthTotals,rolling12,currentMonth,annualHoursBudget}; }
+function computeCurrentPersonnelCost(){ return computePersonnelTotals().currentMonth||0; }
+function getActivePersonnelYear(){ return Number(horizon[0]?.year||new Date().getFullYear()); }
+function computeHourlyRate(costs,hours){ if(!Number.isFinite(costs)||!Number.isFinite(hours)||hours<=0) return null; return costs/hours; }
+function syncHourlyRateFormFromPersonnel(force=false){ const yearInput=$('sh_year'), hoursInput=$('sh_hours'); if(!yearInput||!hoursInput) return; const activeYear=getActivePersonnelYear(); if(!yearInput.value) yearInput.value=String(activeYear); const year=Number(yearInput.value||activeYear); const staffHours=computePersonnelTotals().annualHoursBudget||0; $('sh_hoursHint').textContent=`Jahresstundenbudget Personal aktuell: ${formatNumberDE(staffHours,0)} h`; if(force || year===activeYear){ hoursInput.value=staffHours?String(staffHours).replace('.',','):''; } updateHourlyRatePreview(); }
+
 function normalizeStatus(s){ if(s==='angekündigt') return 'angekuendigt'; return s||'beauftragt'; }
 function reserveTotal(){ return (state.reserves||[]).reduce((s,r)=>s+Number(r.value||0),0); }
 
@@ -482,7 +593,9 @@ function ensureExpense(e){
 }
 function applyLoadedState(next){
   state=next||{accounts:[{id:uid(),name:'Hauptkonto',openingBalance:0}],reserves:[],projects:[],expenses:[],ui:{}};
-  state.ui=Object.assign({showAnnounced:false,includeAnnouncedForecast:false,showCompleted:false,showIncome:true,showExpenses:true,showReserves:true,openProjectGroups:{},openExpenseGroups:{},baseYear:defaultBaseMonth().year,baseMonth:defaultBaseMonth().month},state.ui||{});
+  state.ui=Object.assign({showAnnounced:false,includeAnnouncedForecast:false,showCompleted:false,showIncome:true,showExpenses:true,showReserves:true,showPersonnelSection:true,showHourlyRateSection:true,openProjectGroups:{},openExpenseGroups:{},baseYear:defaultBaseMonth().year,baseMonth:defaultBaseMonth().month},state.ui||{});
+  state.personnel=normalizePersonnelState(state.personnel||defaultPersonnelState());
+  state.hourlyRateModule=normalizeHourlyRateState(state.hourlyRateModule||defaultHourlyRateModule());
   rebuildHorizon();
   if(!state.accounts||!state.accounts.length) state.accounts=[{id:uid(),name:'Hauptkonto',openingBalance:0}];
   state.accounts=state.accounts.map(a=>({id:a.id||uid(),name:a.name||'Konto',openingBalance:Number(a.openingBalance||0)}));
@@ -804,6 +917,8 @@ function renumberGroupLines(projectNumber,name){ return; }
 function toggleIncomeSection(){ state.ui.showIncome=!state.ui.showIncome; renderAll(); }
 function toggleExpensesSection(){ state.ui.showExpenses=!state.ui.showExpenses; renderAll(); }
 function toggleReservesSection(){ state.ui.showReserves=!state.ui.showReserves; renderAll(); }
+function togglePersonnelSection(){ state.ui.showPersonnelSection=!state.ui.showPersonnelSection; renderAll(); }
+function toggleHourlyRateSection(){ state.ui.showHourlyRateSection=!state.ui.showHourlyRateSection; renderAll(); }
 function toggleProjectGroup(key){ state.ui.openProjectGroups=state.ui.openProjectGroups||{}; state.ui.openProjectGroups[key]=!state.ui.openProjectGroups[key]; renderAll(); }
 function toggleExpenseGroup(key){ state.ui.openExpenseGroups=state.ui.openExpenseGroups||{}; state.ui.openExpenseGroups[key]=!state.ui.openExpenseGroups[key]; renderAll(); }
 
@@ -831,13 +946,22 @@ function analyzeLiquidity(){
   return {overall,reserves,points,firstNegativeIndex,minPoint,recoveryIndex,criticalStartIndex,positiveRun,status,statusText,bandStates};
 }
 
+function buildPersonnelMonthCell(row, calc, monthIndex){ const cell=(row.months||[])[monthIndex]||makePersonnelMonth(false,''); const explicit=calc.explicit[monthIndex]; const effective=calc.effective[monthIndex]; const inherited=cell.active && explicit==='' && effective>0; const inactive=!cell.active; const visibleValue=cell.active ? (inherited?effective:(cell.value===''?'':cell.value)) : ''; return `<td><div class="personnel-cell"><div style="display:flex;justify-content:space-between;align-items:center"><button class="personnel-toggle ${inactive?'inactive':''}" type="button" onclick="togglePersonnelMonth('${row.id}','${row.type}',${monthIndex})">${inactive?'○':'✓'}</button><div class="personnel-carry">${inherited?'fortgeführt':'&nbsp;'}</div></div><input class="personnel-input ${inactive?'inactive':''}" inputmode="decimal" value="${formatMonthInputValue(visibleValue)}" onchange="updatePersonnelMonthValue('${row.id}','${row.type}',${monthIndex},this.value)"></div></td>`; }
+function renderPersonnel(){ const totals=computePersonnelTotals(); const currentMonthLabel=horizon[0]?.label||''; const sectionOpen=state.ui.showPersonnelSection!==false; $('togglePersonnelSectionBtn').textContent=`${sectionOpen?'▾':'▸'} Personal`; $('personnelSectionBody').style.display=sectionOpen?'block':'none'; if(!sectionOpen) return; $('personnelSummary').innerHTML=`<div class="personnel-box"><div class="label">Personalkosten aktiver Monat</div><div class="value">${fmt(totals.currentMonth)}</div><div class="small muted">${currentMonthLabel}</div></div><div class="personnel-box"><div class="label">Jahresstundenbudget Personal</div><div class="value">${formatNumberDE(totals.annualHoursBudget,0)} h</div><div class="small muted">Wochenstunden × 52</div></div><div class="personnel-box"><div class="label">Mitarbeiter</div><div class="value">${state.personnel.employees.length}</div><div class="small muted">aktive und inaktive Datensätze</div></div><div class="personnel-box"><div class="label">12-Monats-Summe</div><div class="value">${fmt(totals.rolling12)}</div><div class="small muted">Personal plus Zusatzkosten</div></div>`; $('togglePersonnelBtn').textContent=state.personnel.collapsed?'Details öffnen':'Details schließen'; $('personnelTableWrap').style.display=state.personnel.collapsed?'none':'block'; if(state.personnel.collapsed){ $('personnelTableWrap').innerHTML=''; return; } const header=horizon.map(h=>`<th>${h.short}</th>`).join(''); const employeeRows=state.personnel.employees.map(row=>{ const calc=totals.rowCalcs.get(row.id); const label=`${row.firstName||''} ${row.lastName||''}`.trim()||'Unbenannt'; return `<tr><td class="personnel-sticky"><div class="personnel-name">${label}</div><div class="personnel-subinputs"><input type="text" value="${String(row.firstName||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" placeholder="Vorname" onchange="updatePersonnelEmployeeField('${row.id}','firstName',this.value)"><input type="text" value="${String(row.lastName||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" placeholder="Nachname" onchange="updatePersonnelEmployeeField('${row.id}','lastName',this.value)"></div><div class="personnel-subinputs single"><input type="number" step="0.1" value="${row.weeklyHours===''?'':Number(row.weeklyHours||0)}" placeholder="Wochenstunden" onchange="updatePersonnelEmployeeField('${row.id}','weeklyHours',this.value)"></div><div class="small muted" style="margin-bottom:6px">Wochenstunden laut Vertrag</div><div class="personnel-mini-actions"><button type="button" class="danger" onclick="deletePersonnelEmployee('${row.id}')">Löschen</button></div></td>${Array.from({length:24},(_,i)=>buildPersonnelMonthCell(row,calc,i)).join('')}<td>${formatNumberDE(calc.annualHours,0)} h</td><td>${fmt(calc.rolling12)}</td></tr>`; }).join('') || `<tr><td class="personnel-sticky muted small">Noch keine Mitarbeiter angelegt.</td><td colspan="26"></td></tr>`; const extraRows=state.personnel.extras.map(row=>{ const calc=totals.rowCalcs.get(row.id); const safe=String(row.label||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;'); return `<tr><td class="personnel-sticky"><div class="personnel-name">${row.label||'Zusatzkosten'}</div><div class="personnel-subinputs single"><input type="text" value="${safe}" placeholder="Bezeichnung" onchange="updatePersonnelExtraLabel('${row.id}',this.value)"></div><div class="personnel-mini-actions"><button type="button" class="danger" onclick="deletePersonnelExtra('${row.id}')">Löschen</button></div></td>${Array.from({length:24},(_,i)=>buildPersonnelMonthCell(row,calc,i)).join('')}<td>–</td><td>${fmt(calc.rolling12)}</td></tr>`; }).join('') || `<tr><td class="personnel-sticky muted small">Noch keine Zusatzkostenzeilen angelegt.</td><td colspan="26"></td></tr>`; $('personnelTableWrap').innerHTML=`<table class="personnel-table"><thead><tr><th class="personnel-sticky">Position</th>${header}<th>Jahresstunden</th><th>12M Summe</th></tr></thead><tbody><tr class="personnel-section"><td colspan="27">Mitarbeiter</td></tr>${employeeRows}<tr class="personnel-section"><td colspan="27">Zusatzkosten</td></tr>${extraRows}<tr class="personnel-summary-row"><td class="personnel-sticky">Gesamtsumme Personalblock</td>${Array.from({length:24},(_,i)=>`<td>${fmt(totals.monthTotals[i])}</td>`).join('')}<td>${formatNumberDE(totals.annualHoursBudget,0)} h</td><td>${fmt(totals.rolling12)}</td></tr></tbody></table>`; }
+function renderHourlyRateModule(){ const sectionOpen=state.ui.showHourlyRateSection!==false; $('toggleHourlyRateSectionBtn').textContent=`${sectionOpen?'▾':'▸'} Bürostundensatz`; $('hourlyRateSectionBody').style.display=sectionOpen?'block':'none'; if(!sectionOpen) return; const activeYear=getActivePersonnelYear(); const formYear=Number($('sh_year').value||activeYear); const current=state.hourlyRateModule.items.find(item=>item.year===state.hourlyRateModule.activeYear); if(!current){ $('activeYearPill').textContent='Kein aktiver Jahresstand'; $('activeRate').textContent='– € / h'; $('activeFormula').textContent='Bitte einen Jahresstand anlegen oder aktivieren.'; } else { $('activeYearPill').textContent=`Aktiv: ${current.year}`; $('activeRate').textContent=`${fmt(current.rate)} / h`; $('activeFormula').textContent=`${fmt(current.costs)} ÷ ${formatNumberDE(current.hours,2)} h`; } const sorted=[...state.hourlyRateModule.items].sort((a,b)=>b.year-a.year); $('hourlyRateArchive').innerHTML=sorted.length?sorted.map(item=>`<article class="archive-item"><div class="archive-top"><div class="archive-year">${item.year}</div>${item.year===state.hourlyRateModule.activeYear?'<div class="archive-badge">Aktiver Wert</div>':''}</div><div class="archive-rate">${fmt(item.rate)} / h</div><div class="archive-meta"><div>Jahreskosten: ${fmt(item.costs)}</div><div>Jahresstunden: ${formatNumberDE(item.hours,2)} h</div></div><div class="archive-actions"><button class="secondary" type="button" onclick="editHourlyRateItem(${item.year})">Bearbeiten</button><button class="secondary" type="button" onclick="activateHourlyRateItem(${item.year})" ${item.year===state.hourlyRateModule.activeYear?'disabled':''}>Aktiv setzen</button><button class="danger" type="button" onclick="deleteHourlyRateItem(${item.year})">Löschen</button></div></article>`).join(''):'<div class="empty">Noch kein Jahresstand gespeichert.</div>'; if(!$('sh_year').value) $('sh_year').value=String(formYear); syncHourlyRateFormFromPersonnel(false); }
+function updateHourlyRatePreview(){ const costs=parseLooseNumber($('sh_costs').value); const hours=parseLooseNumber($('sh_hours').value); const rate=computeHourlyRate(costs,hours); $('previewRate').textContent=rate===null?'– € / h':`${fmt(rate)} / h`; }
+function saveHourlyRateItem(){ const year=parseInt($('sh_year').value,10); const costs=parseLooseNumber($('sh_costs').value); let hours=parseLooseNumber($('sh_hours').value); const activeYear=getActivePersonnelYear(); if((hours===''||!Number.isFinite(hours)) && year===activeYear) hours=computePersonnelTotals().annualHoursBudget; if(!Number.isInteger(year)||year<2000||year>2100){ $('hourlyRateError').textContent='Bitte ein plausibles Jahr eingeben.'; return; } if(!Number.isFinite(costs)||costs<=0){ $('hourlyRateError').textContent='Bitte positive Jahresgesamtkosten eingeben.'; return; } if(!Number.isFinite(hours)||hours<=0){ $('hourlyRateError').textContent='Bitte positive Jahresstunden eingeben.'; return; } const rate=computeHourlyRate(costs,hours); const existingIndex=state.hourlyRateModule.items.findIndex(item=>item.year===year); const payload={year,costs,hours,rate,updatedAt:new Date().toISOString()}; if(existingIndex>=0) state.hourlyRateModule.items[existingIndex]=payload; else state.hourlyRateModule.items.push(payload); if(!state.hourlyRateModule.activeYear || state.hourlyRateModule.activeYear===year || state.hourlyRateModule.items.length===1) state.hourlyRateModule.activeYear=year; $('hourlyRateError').textContent=''; renderAll(); }
+function clearHourlyRateForm(){ $('sh_year').value=String(getActivePersonnelYear()); $('sh_costs').value=''; syncHourlyRateFormFromPersonnel(true); $('hourlyRateError').textContent=''; }
+function editHourlyRateItem(year){ const item=state.hourlyRateModule.items.find(entry=>entry.year===year); if(!item) return; $('sh_year').value=String(item.year); $('sh_costs').value=String(item.costs).replace('.',','); $('sh_hours').value=String(item.hours).replace('.',','); updateHourlyRatePreview(); $('hourlyRateError').textContent=''; window.scrollTo({top:0,behavior:'smooth'}); }
+function activateHourlyRateItem(year){ state.hourlyRateModule.activeYear=year; renderAll(); }
+function deleteHourlyRateItem(year){ const item=state.hourlyRateModule.items.find(entry=>entry.year===year); if(!item) return; if(!confirm(`Jahresstand ${year} wirklich löschen?`)) return; state.hourlyRateModule.items=state.hourlyRateModule.items.filter(entry=>entry.year!==year); if(state.hourlyRateModule.activeYear===year){ const newest=[...state.hourlyRateModule.items].sort((a,b)=>b.year-a.year)[0]; state.hourlyRateModule.activeYear=newest?newest.year:null; } renderAll(); }
 function renderTop(){
   const a=analyzeLiquidity(); const availableNow=a.overall.opening-a.reserves;
-  $('topMetrics').innerHTML=`<div class="metric"><div class="label">Aktueller Gesamtsaldo</div><div class="value">${fmt(a.overall.opening)}</div></div><div class="metric"><div class="label">Rücklagen gesamt</div><div class="value">${fmt(a.reserves)}</div></div><div class="metric"><div class="label">Verfügbare Liquidität jetzt</div><div class="value ${availableNow>=0?'positive':'negative'}">${fmt(availableNow)}</div></div>`;
+  const personnelCurrent=computeCurrentPersonnelCost(); $('topMetrics').innerHTML=`<div class="metric"><div class="label">Aktueller Gesamtsaldo</div><div class="value">${fmt(a.overall.opening)}</div></div><div class="metric"><div class="label">Rücklagen gesamt</div><div class="value">${fmt(a.reserves)}</div></div><div class="metric"><div class="label">Verfügbare Liquidität jetzt</div><div class="value ${availableNow>=0?'positive':'negative'}">${fmt(availableNow)}</div></div><div class="metric"><div class="label">Personalkosten</div><div class="value smallish">${fmt(personnelCurrent)}</div></div>`;
 }
 function renderDashboard(){
   const a=analyzeLiquidity(); const reachText=a.firstNegativeIndex===-1 ? '24 Monate gesichert' : `${a.positiveRun} Monate bis zur ersten Lücke`; const availableNow=a.overall.opening-a.reserves;
-  $('dashboardMetrics').innerHTML=`<div class="metric"><div class="label">Kontostand gesamt</div><div class="value">${fmt(a.overall.opening)}</div></div><div class="metric"><div class="label">Rücklagen gesamt</div><div class="value smallish">${fmt(a.reserves)}</div></div><div class="metric"><div class="label">Verfügbare Liquidität</div><div class="value smallish ${availableNow>=0?'positive':'negative'}">${fmt(availableNow)}</div></div><div class="metric"><div class="label">Reichweite</div><div class="value">${reachText}</div></div>`;
+  const personnelCurrent=computeCurrentPersonnelCost(); $('dashboardMetrics').innerHTML=`<div class="metric"><div class="label">Kontostand gesamt</div><div class="value">${fmt(a.overall.opening)}</div></div><div class="metric"><div class="label">Rücklagen gesamt</div><div class="value smallish">${fmt(a.reserves)}</div></div><div class="metric"><div class="label">Verfügbare Liquidität</div><div class="value smallish ${availableNow>=0?'positive':'negative'}">${fmt(availableNow)}</div></div><div class="metric"><div class="label">Reichweite</div><div class="value">${reachText}</div></div><div class="metric"><div class="label">Personalkosten</div><div class="value smallish">${fmt(personnelCurrent)}</div><div class="small muted">aktiver Monat</div></div>`;
   $('dashboardStatus').innerHTML=`<div class="status-line ${a.status}">${a.statusText}<div class="small muted" style="margin-top:6px">Tiefpunkt verfügbare Liquidität: ${fmt(a.minPoint.value)} · ${a.minPoint.label}</div></div>`;
   $('reachabilityBand').innerHTML=`<div class="reach-band">${a.bandStates.map(p=>`<div class="reach-item ${p.cls} ${p.breakpoint?'breakpoint':''}"><div class="reach-month">${p.short}</div><div class="reach-value">${fmt(p.value)}</div></div>`).join('')}</div>`;
 }
@@ -931,6 +1055,8 @@ function renderTable(){
   renderDashboard();
   renderAccounts();
   renderReserves();
+  renderPersonnel();
+  renderHourlyRateModule();
   renderTable();
 
   const reservesBtn = document.getElementById('toggleReservesBtn');
@@ -972,7 +1098,7 @@ window.deleteAccount=(id)=>{ if(state.accounts.length<=1){ alert('Mindestens ein
 window.editReserve=(id)=>{ const r=state.reserves.find(x=>x.id===id); if(!r) return; editingReserveId=id; $('reserveDialogTitle').textContent='Rücklage bearbeiten'; $('r_name').value=r.name; $('r_value').value=r.value; $('reserveDialog').showModal(); };
 window.deleteReserve=(id)=>{ if(!confirm('Rücklage wirklich löschen?')) return; saveCheckpoint('Rücklage gelöscht'); state.reserves=state.reserves.filter(r=>r.id!==id); renderAll(); };
 
-$('addProjectBtn').onclick=()=>{ projectDialogSync={budget:true,duration:true,hours:true,rate:true}; editingProjectId=null; $('projectDialogTitle').textContent='Projekt / Zeile anlegen'; $('p_account').value=state.accounts[0].id; $('p_number').value=''; $('p_name').value=''; $('p_status').value='beauftragt'; $('p_lineLabel').value='Zeile 1'; $('p_type').value='HOAI'; $('p_budget').value='0'; $('p_invoiced').value='0'; $('p_startMonth').innerHTML=monthOptions(horizon[0].month); $('p_startYear').innerHTML=yearOptions(horizon[0].year); $('p_duration').value='12'; $('p_distributionModel').value='linear'; $('p_hours').value='0'; $('p_rate').value='65'; $('p_note').value=''; fillHoaiForm({hourlyRate:95}); renderPhases(); bindPhaseInputs(); bindHoaiInputs(); refreshProjectTypeUI(); $('projectDialog').showModal(); };
+$('addProjectBtn').onclick=()=>{ projectDialogSync={budget:true,duration:true,hours:true,rate:true}; editingProjectId=null; const activeHourly=(state.hourlyRateModule.items.find(item=>item.year===state.hourlyRateModule.activeYear)||{}).rate;  $('projectDialogTitle').textContent='Projekt / Zeile anlegen'; $('p_account').value=state.accounts[0].id; $('p_number').value=''; $('p_name').value=''; $('p_status').value='beauftragt'; $('p_lineLabel').value='Zeile 1'; $('p_type').value='HOAI'; $('p_budget').value='0'; $('p_invoiced').value='0'; $('p_startMonth').innerHTML=monthOptions(horizon[0].month); $('p_startYear').innerHTML=yearOptions(horizon[0].year); $('p_duration').value='12'; $('p_distributionModel').value='linear'; $('p_hours').value='0'; $('p_rate').value=activeHourly?Number(activeHourly).toFixed(2):'65'; $('p_note').value=''; fillHoaiForm({hourlyRate:(activeHourly?Number(activeHourly):95)}); renderPhases(); bindPhaseInputs(); bindHoaiInputs(); refreshProjectTypeUI(); $('projectDialog').showModal(); };
 $('saveProjectBtn').onclick=()=>{ const prev=editingProjectId ? state.projects.find(p=>p.id===editingProjectId) : null; const startYear=Number($('p_startYear').value||horizon[0].year); const startMonth=Number($('p_startMonth').value||horizon[0].month); const phases=getPhaseDataFromForm(); const hoaiData=getHoaiFormData(); const hoaiResult=calculateHoaiProject(hoaiData, phases, $('p_name').value.trim()); const distributionModel=$('p_distributionModel').value||'linear'; const derivedDuration=getDerivedPhaseDuration(phases, distributionModel)||Number($('p_duration').value||12); const project=ensureProject({id:editingProjectId||uid(), accountId:$('p_account').value, projectNumber:$('p_number').value.trim(), lineOrder:(prev&&prev.lineOrder)?prev.lineOrder:1, lineLabel:$('p_lineLabel').value.trim()||'Zeile 1', name:$('p_name').value.trim(), status:normalizeStatus($('p_status').value), type:$('p_type').value, distributionModel:distributionModel, totalBudget:Number($('p_budget').value||0), invoicedAmount:Number($('p_invoiced').value||0), startYear, startMonth, duration:($('p_type').value==='HOAI'?derivedDuration:Number($('p_duration').value||12)), hours:Number($('p_hours').value||0), rate:Number($('p_rate').value||65), note:$('p_note').value.trim(), phases:phases, hoai:Object.assign({}, hoaiData, {derivation:hoaiResult.derivation,externalDerivation:hoaiResult.externalDerivation,hoursBudget:hoaiResult.hoursBudget,totalNetFee:hoaiResult.totalNetFee}), manualPlan:{}, invoiceMarks:(prev&&prev.invoiceMarks)?prev.invoiceMarks:{}}); if(!project.name){ alert('Projektname fehlt.'); return; } saveCheckpoint(editingProjectId?'Projekt geändert':'Projekt angelegt'); if(project.type==='HOAI'){ project.totalBudget=Number($('p_budget').value||hoaiResult.commissionedNetFee||0); project.rate=Number($('p_rate').value||hoaiData.hourlyRate||0); project.hours=Number($('p_hours').value||0); } if(project.type==='Stunden'){ project.hours=Number($('p_hours').value||hoaiResult.hoursBudget||0); project.rate=Number($('p_rate').value||hoaiData.hourlyRate||0); project.totalBudget=Number($('p_budget').value||0); if(project.hours>0 && project.rate>0 && !$('p_budget').value){ project.totalBudget=project.hours*project.rate; } } if(project.type==='Pauschal'){ project.totalBudget=Number($('p_budget').value||hoaiResult.totalNetFee); project.rate=Number($('p_rate').value||hoaiData.hourlyRate||0); project.hours=Number($('p_hours').value||0); } project.manualPlan=generateProjectPlan(project); if(editingProjectId){ state.projects=state.projects.map(p=>p.id===editingProjectId?project:p); } else { project.lineOrder=nextProjectLineOrder(project); if(!$('p_lineLabel').value.trim()) project.lineLabel=`Zeile ${project.lineOrder}`; state.projects.push(project); } $('projectDialog').close(); renderAll(); };
 
 $('addExpenseBtn').onclick=()=>{ editingExpenseId=null; $('expenseDialogTitle').textContent='Ausgabe / Zeile anlegen'; $('e_number').value=''; $('e_category').value='Miete'; $('e_label').value=''; $('e_lineLabel').value='Zeile 1'; $('e_amount').value='0'; $('e_type').value='fixed'; $('e_rhythm').value='monthly'; $('e_startMonth').innerHTML=monthOptions(horizon[0].month); $('e_startYear').innerHTML=yearOptions(horizon[0].year); $('e_endMonth').innerHTML=monthOptions(horizon[horizon.length-1].month); $('e_endYear').innerHTML=yearOptions(horizon[horizon.length-1].year); $('expenseDialog').showModal(); };
@@ -994,6 +1120,8 @@ $('p_rate').addEventListener('input',()=>{ projectDialogSync.rate=false; calcAut
 $('resetBudgetSyncBtn').onclick=resetProjectBudgetSync;
 $('resetDurationSyncBtn').onclick=resetProjectDurationSync;
 $('openDistributionPreviewBtn').onclick=openDistributionPreview;
+$('togglePersonnelSectionBtn').onclick=togglePersonnelSection;
+$('toggleHourlyRateSectionBtn').onclick=toggleHourlyRateSection;
 $('toggleAnnounced').onchange=e=>{ state.ui.showAnnounced=!!e.target.checked; renderAll(); };
 $('toggleAnnouncedForecast').onchange=e=>{ state.ui.includeAnnouncedForecast=!!e.target.checked; renderAll(); };
 $('toggleCompleted').onchange=e=>{ state.ui.showCompleted=!!e.target.checked; renderAll(); };
@@ -1003,6 +1131,20 @@ $('importBtn').onclick=()=>$('importFile').click();
 $('importFile').onchange=async e=>{ const file=e.target.files[0]; if(!file) return; const txt=await file.text(); const data=JSON.parse(txt); saveCheckpoint('Import'); applyLoadedState(data); renderAll(); e.target.value=''; };
 $('resetBtn').onclick=()=>{ if(!confirm('Wirklich alles löschen?')) return; saveCheckpoint('Alles gelöscht'); applyLoadedState(null); renderAll(); };
 $('undoBtn').onclick=undoAction; $('redoBtn').onclick=redoAction;
+
+$('togglePersonnelBtn').onclick=()=>{ state.personnel.collapsed=!state.personnel.collapsed; renderAll(); };
+$('addEmployeeBtn').onclick=()=>{ saveCheckpoint('Mitarbeiter angelegt'); const row=makeEmployee('Vorname','Nachname',''); row.months=row.months.map(cell=>({active:true,value:''})); state.personnel.employees.push(row); renderAll(); };
+$('addPersonnelExtraBtn').onclick=()=>{ saveCheckpoint('Personal-Zusatzkosten angelegt'); const row=makePersonnelExtra('Neue Zusatzkostenzeile'); row.months=row.months.map(cell=>({active:true,value:''})); state.personnel.extras.push(row); renderAll(); };
+$('saveHourlyRateBtn').onclick=()=>{ saveCheckpoint('Bürostundensatz gespeichert'); saveHourlyRateItem(); };
+$('resetHourlyRateBtn').onclick=clearHourlyRateForm;
+['sh_year','sh_hours','sh_costs'].forEach(id=>$(id).addEventListener('input',()=>{ if(id==='sh_year') syncHourlyRateFormFromPersonnel(false); updateHourlyRatePreview(); }));
+window.togglePersonnelMonth=(id,type,monthIndex)=>{ const list=type==='employee'?state.personnel.employees:state.personnel.extras; const row=list.find(r=>r.id===id); if(!row) return; row.months[monthIndex].active=!row.months[monthIndex].active; renderAll(); };
+window.updatePersonnelMonthValue=(id,type,monthIndex,raw)=>{ const list=type==='employee'?state.personnel.employees:state.personnel.extras; const row=list.find(r=>r.id===id); if(!row) return; row.months[monthIndex].value=raw===''?'':parseLooseNumber(raw); renderAll(); };
+window.updatePersonnelEmployeeField=(id,key,value)=>{ const row=state.personnel.employees.find(r=>r.id===id); if(!row) return; row[key]=key==='weeklyHours'?(value===''?'':Number(value||0)):value; renderAll(); };
+window.updatePersonnelExtraLabel=(id,value)=>{ const row=state.personnel.extras.find(r=>r.id===id); if(!row) return; row.label=value; renderAll(); };
+window.deletePersonnelEmployee=(id)=>{ const row=state.personnel.employees.find(r=>r.id===id); if(!row) return; const label=`${row.firstName||''} ${row.lastName||''}`.trim()||'Diesen Mitarbeiter'; if(!confirm(`${label} wirklich löschen? Alle Monatswerte gehen verloren.`)) return; saveCheckpoint('Mitarbeiter gelöscht'); state.personnel.employees=state.personnel.employees.filter(r=>r.id!==id); renderAll(); };
+window.deletePersonnelExtra=(id)=>{ const row=state.personnel.extras.find(r=>r.id===id); if(!row) return; const label=row.label||'Diese Zusatzkostenzeile'; if(!confirm(`${label} wirklich löschen? Alle Monatswerte gehen verloren.`)) return; saveCheckpoint('Personal-Zusatzkosten gelöscht'); state.personnel.extras=state.personnel.extras.filter(r=>r.id!==id); renderAll(); };
+window.editHourlyRateItem=editHourlyRateItem; window.activateHourlyRateItem=activateHourlyRateItem; window.deleteHourlyRateItem=deleteHourlyRateItem;
 
 
 window.printProjectHoaiPdf=(id)=>{
