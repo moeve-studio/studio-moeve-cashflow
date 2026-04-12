@@ -9,7 +9,7 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);letter-spacing:.01em}
 header{position:sticky;top:0;z-index:5;background:rgba(243,241,235,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(21,21,21,.08);padding:18px 22px}
-h1{margin:0;font-size:24px;font-weight:650;letter-spacing:.01em}.sub{font-size:13px;color:var(--muted);margin-top:5px}
+h1{margin:0;font-size:24px;font-weight:600;letter-spacing:.01em}.sub{font-size:13px;color:var(--muted);margin-top:5px}
 .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 button{border:1px solid rgba(21,21,21,.08);background:rgba(251,250,246,.82);padding:10px 12px;border-radius:6px;cursor:pointer;font-weight:600;color:var(--text);transition:background .15s ease,border-color .15s ease,transform .15s ease}
 button:hover{background:#fff;border-color:rgba(21,21,21,.16)}
@@ -19,7 +19,7 @@ button[disabled]{opacity:.5;cursor:default}
 .card{background:rgba(251,250,246,.84);border:1px solid rgba(21,21,21,.07);border-radius:8px;padding:18px 18px 16px;margin-bottom:18px;overflow:hidden;box-shadow:0 1px 0 rgba(21,21,21,.03)}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.metric{background:linear-gradient(180deg,var(--soft-2),var(--soft));border:1px solid rgba(21,21,21,.05);border-radius:6px;padding:14px}.label{font-size:11px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}.value{font-size:24px;font-weight:650;line-height:1.1}.value.smallish{font-size:19px}
+.metric{background:linear-gradient(180deg,var(--soft-2),var(--soft));border:1px solid rgba(21,21,21,.05);border-radius:6px;padding:14px}.label{font-size:11px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}.value{font-size:24px;font-weight:600;line-height:1.1}.value.smallish{font-size:19px}
 .status-line{margin-top:14px;padding:14px;border:1px solid rgba(21,21,21,.07);border-radius:6px;background:#f8f5ef;font-weight:600}.status-line.positive{background:#f1f6f2}.status-line.warning{background:#faf4ea}.status-line.negative{background:#f8ecec}
 .chart-wrap{margin-top:16px;border:1px solid rgba(21,21,21,.07);border-radius:8px;background:#f8f5ef;padding:12px}
 .reach-band{display:grid;grid-template-columns:repeat(24,minmax(42px,1fr));gap:6px}
@@ -38,9 +38,10 @@ th{background:#f3efe7;position:sticky;top:0;z-index:2;text-transform:uppercase;l
 .sticky4{left:440px;min-width:110px}
 .sticky5{left:550px;min-width:110px}
 .sticky6{left:660px;min-width:110px}
-input[type=text],input[type=number],input[type=month],select{width:100%;padding:10px 11px;border:1px solid rgba(21,21,21,.10);border-radius:6px;background:#fff;font-size:14px;color:var(--text)}
+input[type=text],input[type=number],input[type=month],select,textarea{width:100%;padding:10px 11px;border:1px solid rgba(21,21,21,.10);border-radius:6px;background:#fff;font-size:14px;color:var(--text)}
 input[type=number]{appearance:textfield;-moz-appearance:textfield}
 input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{appearance:none;margin:0}
+textarea{min-height:78px;resize:vertical}
 .cell-input{width:100%;text-align:right;padding:6px 8px;border-radius:5px;border:1px solid rgba(21,21,21,.08);background:#fff}
 .cell-input.marked{background:#eef8f1;border-color:#8ec4a0;color:var(--good);font-weight:700}
 .month-cell{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px;align-items:center}
@@ -129,7 +130,7 @@ dialog::backdrop{background:rgba(0,0,0,.28)} .modal-head{padding:16px 18px;borde
   .sticky{min-width:180px}
   .month-cell{grid-template-columns:minmax(54px,1fr) auto;gap:3px}
   .cell-input{padding:5px 6px;font-size:12px;min-width:54px}
-  input[type=text],input[type=number],input[type=month],select{padding:8px 9px;font-size:13px}
+  input[type=text],input[type=number],input[type=month],select,textarea{padding:8px 9px;font-size:13px}
   dialog{width:min(100vw - 12px, 900px);border-radius:12px}
   .modal-head{padding:12px 14px}
   .modal-body{padding:14px}
@@ -165,11 +166,11 @@ dialog::backdrop{background:rgba(0,0,0,.28)} .modal-head{padding:16px 18px;borde
 :root{--bg:#f6f3ec;--card:#fdfbf6;--line:#d7d0c3;--line-strong:#b4ab9c;--text:#111111;--muted:#6a645c;--soft:#f2ede3;--soft-2:#faf7f1;--shadow:0 10px 28px rgba(17,17,17,.04)}
 body{background:linear-gradient(180deg,#f7f4ee 0%,#f3efe7 100%);color:var(--text)}
 header{padding:26px 30px 18px;background:rgba(247,244,238,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(17,17,17,.10);box-shadow:0 8px 24px rgba(17,17,17,.03)}
-header h1{font-size:29px;font-weight:560;letter-spacing:.015em;line-height:1}
+header h1{font-size:29px;font-weight:500;letter-spacing:.015em;line-height:1}
 .sub{margin-top:8px;max-width:820px;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
 .gross-note{margin-top:10px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#7a7368}
 .toolbar{margin-top:18px;gap:10px}
-button{padding:10px 13px;border-radius:4px;border:1px solid rgba(17,17,17,.10);background:rgba(253,251,246,.65);font-weight:560;letter-spacing:.01em;box-shadow:none}
+button{padding:10px 13px;border-radius:4px;border:1px solid rgba(17,17,17,.10);background:rgba(253,251,246,.65);font-weight:500;letter-spacing:.01em;box-shadow:none}
 button:hover{background:#fff;border-color:rgba(17,17,17,.22)}
 .toolbar button:nth-child(-n+4){background:#151515;color:#f7f4ee;border-color:#151515}
 .toolbar button:nth-child(-n+4):hover{background:#000;color:#fff;border-color:#000}
@@ -177,12 +178,12 @@ button:hover{background:#fff;border-color:rgba(17,17,17,.22)}
 .wrap{padding:28px 28px 40px}
 .card{padding:22px 22px 18px;margin-bottom:20px;border-radius:6px;border:1px solid rgba(17,17,17,.08);background:rgba(253,251,246,.82);box-shadow:var(--shadow)}
 .section-title{margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(17,17,17,.08)}
-.section-title strong{font-size:15px;font-weight:620;letter-spacing:.04em;text-transform:uppercase}
+.section-title strong{font-size:15px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 .metric{padding:18px 16px 16px;border-radius:4px;border:1px solid rgba(17,17,17,.08);background:rgba(255,255,255,.52)}
 #topMetrics .metric,#dashboardMetrics .metric{position:relative;padding-top:22px;min-height:120px;background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(246,241,232,.9));box-shadow:0 1px 0 rgba(17,17,17,.03)}
 #topMetrics .metric::before,#dashboardMetrics .metric::before{content:"";position:absolute;left:16px;right:16px;top:12px;height:1px;background:rgba(17,17,17,.18)}
 .label{margin-bottom:12px;font-size:10px;letter-spacing:.09em;color:#70695f}
-#topMetrics .value,#dashboardMetrics .value{font-size:30px;font-weight:560;letter-spacing:-.02em}
+#topMetrics .value,#dashboardMetrics .value{font-size:30px;font-weight:500;letter-spacing:-.02em}
 #topMetrics .value.smallish,#dashboardMetrics .value.smallish{font-size:24px}
 .status-line{margin-top:18px;padding:16px 18px;border-radius:4px;border-left:2px solid rgba(17,17,17,.65);background:rgba(251,247,239,.96)}
 .status-line.positive{border-left-color:var(--good)}
@@ -196,7 +197,7 @@ button:hover{background:#fff;border-color:rgba(17,17,17,.22)}
 dialog{border-radius:8px;border:1px solid rgba(17,17,17,.12);box-shadow:0 22px 60px rgba(0,0,0,.18)}
 .modal-head{padding:18px 20px;background:#f7f3ea;text-transform:uppercase;letter-spacing:.05em;font-size:12px}
 .modal-body{padding:20px}
-input[type=text],input[type=number],input[type=month],select{border-radius:4px;border:1px solid rgba(17,17,17,.12);background:rgba(255,255,255,.9)}
+input[type=text],input[type=number],input[type=month],select,textarea{border-radius:4px;border:1px solid rgba(17,17,17,.12);background:rgba(255,255,255,.9)}
 .cell-input{border-radius:3px}
 .totals-row td{background:#f5f1e8}
 .footer-copyright{right:18px;bottom:14px;border-radius:4px;padding:7px 10px;background:rgba(247,244,238,.92);border-color:rgba(17,17,17,.10)}
@@ -379,7 +380,7 @@ input[type=text],input[type=number],input[type=month],select{border-radius:4px;b
   </div>
 </div>
 
-<dialog id="accountDialog"><div class="modal-head"><span id="accountDialogTitle">Konto anlegen</span><button onclick="accountDialog.close()">Schließen</button></div><div class="modal-body"><div class="form-grid"><div><label>Kontoname</label><input id="a_name" type="text"></div><div><label>Aktueller Kontostand</label><input id="a_balance" type="number" step="0.01"></div></div><div class="modal-actions"><span class="muted small">Der aktuelle Kontostand überschreibt den Ist-Stand des Kontos.</span><button id="saveAccountBtn">Speichern</button></div></div></dialog>
+<dialog id="accountDialog"><div class="modal-head"><span id="accountDialogTitle">Konto anlegen</span><button onclick="accountDialog.close()">Schließen</button></div><div class="modal-body"><div class="form-grid"><div><label for="a_name">Kontoname</label><input id="a_name" type="text"></div><div><label for="a_balance">Aktueller Kontostand</label><input id="a_balance" type="number" step="0.01"></div><div><label for="a_active" class="checkline"><input id="a_active" type="checkbox" checked> Konto aktiv</label></div><div style="grid-column:1 / -1"><label for="a_note">Interne Notiz</label><textarea id="a_note" placeholder="nur intern sichtbar"></textarea></div></div><div class="modal-actions"><span class="muted small">Der aktuelle Kontostand überschreibt den Ist-Stand des Kontos. Inaktive Konten bleiben gespeichert, werden aber nicht in Liquidität und Prognose einbezogen.</span><button id="saveAccountBtn">Speichern</button></div></div></dialog>
 
 <dialog id="reserveDialog"><div class="modal-head"><span id="reserveDialogTitle">Rücklage anlegen</span><button onclick="reserveDialog.close()">Schließen</button></div><div class="modal-body"><div class="form-grid"><div><label>Name</label><input id="r_name" type="text"></div><div><label>Aktueller Wert</label><input id="r_value" type="number" step="0.01"></div></div><div class="modal-actions"><span class="muted small">Rücklagen mindern die verfügbare Liquidität.</span><button id="saveReserveBtn">Speichern</button></div></div></dialog>
 
@@ -461,6 +462,8 @@ input[type=text],input[type=number],input[type=month],select{border-radius:4px;b
 const LS_KEY='buero_cashflow_integration_v1';
 const $=id=>document.getElementById(id);
 const uid=()=>Math.random().toString(36).slice(2,10);
+const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const escAttr=value=>esc(value).replace(/`/g,'&#96;');
 const DEFAULT_SHARES={1:2,2:7,3:15,4:3,5:25,6:10,7:4,8:32,9:2};
 const DEFAULT_PROGRESS_PHASES={
   1:{durationWeeks:0.5,ref:0,startPct:100},
@@ -547,10 +550,12 @@ function syncHourlyRateFormFromPersonnel(force=false){ const yearInput=$('sh_yea
 
 function normalizeStatus(s){ if(s==='angekündigt') return 'angekuendigt'; return s||'beauftragt'; }
 function reserveTotal(){ return (state.reserves||[]).reduce((s,r)=>s+Number(r.value||0),0); }
+function getActiveAccounts(){ return (state.accounts||[]).filter(a=>a.active!==false); }
+function getFallbackAccount(){ return getActiveAccounts()[0] || state.accounts[0] || null; }
 
 function ensureProject(p){
   p.id=p.id||uid();
-  p.accountId=p.accountId||state.accounts[0]?.id;
+  p.accountId=p.accountId||getFallbackAccount()?.id;
   p.projectNumber=(p.projectNumber||'').toString();
   p.lineLabel=(p.lineLabel||'Zeile 1').toString();
   p.lineOrder=Number(p.lineOrder || ((String(p.lineLabel||'').match(/\d+/)||['1'])[0]));
@@ -593,12 +598,12 @@ function ensureExpense(e){
 }
 function applyLoadedState(next){
   state=next||{accounts:[{id:uid(),name:'Hauptkonto',openingBalance:0}],reserves:[],projects:[],expenses:[],ui:{}};
-  state.ui=Object.assign({showAnnounced:false,includeAnnouncedForecast:false,showCompleted:false,showIncome:true,showExpenses:true,showReserves:true,openProjectGroups:{},openExpenseGroups:{},baseYear:defaultBaseMonth().year,baseMonth:defaultBaseMonth().month},state.ui||{});
+  state.ui=Object.assign({showAccounts:true,showAnnounced:false,includeAnnouncedForecast:false,showCompleted:false,showIncome:true,showExpenses:true,showReserves:true,openProjectGroups:{},openExpenseGroups:{},baseYear:defaultBaseMonth().year,baseMonth:defaultBaseMonth().month},state.ui||{});
   state.personnel=normalizePersonnelState(state.personnel||defaultPersonnelState());
   state.hourlyRateModule=normalizeHourlyRateState(state.hourlyRateModule||defaultHourlyRateModule());
   rebuildHorizon();
   if(!state.accounts||!state.accounts.length) state.accounts=[{id:uid(),name:'Hauptkonto',openingBalance:0}];
-  state.accounts=state.accounts.map(a=>({id:a.id||uid(),name:a.name||'Konto',openingBalance:Number(a.openingBalance||0)}));
+  state.accounts=state.accounts.map(a=>({id:a.id||uid(),name:a.name||'Konto',openingBalance:Number(a.openingBalance||0),active:a.active!==false,note:(a.note||'').toString()}));
   state.reserves=(state.reserves||[]).map(r=>({id:r.id||uid(),name:r.name||'',value:Number((r.value!==undefined?r.value:r.amount)||0)}));
   state.projects=(state.projects||[]).map(ensureProject);
   state.expenses=(state.expenses||[]).map(ensureExpense);
@@ -607,7 +612,7 @@ let state=loadState()||null;
 applyLoadedState(state);
 
 function renderAccountSelects(){
-  const opts=state.accounts.map(a=>`<option value="${a.id}">${a.name}</option>`).join('');
+  const opts=state.accounts.map(a=>`<option value="${escAttr(a.id)}">${esc(a.name)}${a.active===false?' · inaktiv':''}</option>`).join('');
   $('p_account').innerHTML=opts;
 }
 function populateDateSelects(){
@@ -882,7 +887,6 @@ function generateProjectPlan(p){
       const mk=monthKey(mm.year,mm.month);
       if(monthMap[mk]) out[mk]=(out[mk]||0)+distributable/dur;
     }
-    if(p.type==='Stunden' && p.hours>0) p.totalBudget=totalBudget;
   }
   return out;
 }
@@ -914,6 +918,7 @@ function groupedProjects(){ const groups={}; visibleProjectsList().forEach(p=>{ 
 function groupSummary(lines){ return {totalBudget:lines.reduce((s,p)=>s+Number(p.totalBudget||0),0), invoiced:lines.reduce((s,p)=>s+Number(p.invoicedAmount||0),0), planned:lines.reduce((s,p)=>s+projectPlanned(p),0), account:state.accounts.find(a=>a.id===lines[0].accountId)?.name||''}; }
 function renumberGroupLines(projectNumber,name){ return; }
 
+function toggleAccountsSection(){ state.ui.showAccounts=!state.ui.showAccounts; renderAll(); }
 function toggleIncomeSection(){ state.ui.showIncome=!state.ui.showIncome; renderAll(); }
 function toggleExpensesSection(){ state.ui.showExpenses=!state.ui.showExpenses; renderAll(); }
 function toggleReservesSection(){ state.ui.showReserves=!state.ui.showReserves; renderAll(); }
@@ -921,17 +926,35 @@ function toggleProjectGroup(key){ state.ui.openProjectGroups=state.ui.openProjec
 function toggleExpenseGroup(key){ state.ui.openExpenseGroups=state.ui.openExpenseGroups||{}; state.ui.openExpenseGroups[key]=!state.ui.openExpenseGroups[key]; renderAll(); }
 
 function accountMonthlyTotals(){
-  const totals={}; state.accounts.forEach(a=>totals[a.id]={income:{},expense:{},balance:{},opening:Number(a.openingBalance||0)});
-  const activeProjects=state.projects.filter(p=>{ const status=(p.status||'beauftragt'); if(status==='abgeschlossen') return false; if(status==='angekuendigt') return !!state.ui.includeAnnouncedForecast; return true; });
-  activeProjects.forEach(p=>{ ensureProject(p); horizon.forEach(h=> totals[p.accountId].income[h.key]=(totals[p.accountId].income[h.key]||0)+Number(p.manualPlan[h.key]||0)); });
-  state.expenses.forEach(e=>{ ensureExpense(e); horizon.forEach(h=> totals[state.accounts[0].id].expense[h.key]=(totals[state.accounts[0].id].expense[h.key]||0)+Number(e.months[h.key]||0)); });
+  const activeAccounts=getActiveAccounts();
+  const totals={}; activeAccounts.forEach(a=>totals[a.id]={income:{},expense:{},balance:{},opening:Number(a.openingBalance||0)});
+  const fallbackAccount=getFallbackAccount();
+  const activeProjects=state.projects.filter(p=>{
+    const status=(p.status||'beauftragt');
+    if(status==='abgeschlossen') return false;
+    if(status==='angekuendigt' && !state.ui.includeAnnouncedForecast) return false;
+    const account=state.accounts.find(a=>a.id===p.accountId);
+    return account && account.active!==false;
+  });
+  activeProjects.forEach(p=>{
+    ensureProject(p);
+    if(!totals[p.accountId]) return;
+    horizon.forEach(h=> totals[p.accountId].income[h.key]=(totals[p.accountId].income[h.key]||0)+Number((p.manualPlan||{})[h.key]||0));
+  });
+  state.expenses.forEach(e=>{
+    ensureExpense(e);
+    if(!fallbackAccount || !totals[fallbackAccount.id]) return;
+    horizon.forEach(h=> totals[fallbackAccount.id].expense[h.key]=(totals[fallbackAccount.id].expense[h.key]||0)+Number((e.months||{})[h.key]||0));
+  });
   const personnelTotals=computePersonnelTotals();
-  horizon.forEach((h,idx)=>{ totals[state.accounts[0].id].expense[h.key]=(totals[state.accounts[0].id].expense[h.key]||0)-Math.abs(Number(personnelTotals.monthTotals[idx]||0)); });
-  state.accounts.forEach(a=>{ let bal=Number(a.openingBalance||0); horizon.forEach(h=>{ bal += Number(totals[a.id].income[h.key]||0)+Number(totals[a.id].expense[h.key]||0); totals[a.id].balance[h.key]=bal; }); });
+  if(fallbackAccount && totals[fallbackAccount.id]){
+    horizon.forEach((h,idx)=>{ totals[fallbackAccount.id].expense[h.key]=(totals[fallbackAccount.id].expense[h.key]||0)-Math.abs(Number(personnelTotals.monthTotals[idx]||0)); });
+  }
+  activeAccounts.forEach(a=>{ let bal=Number(a.openingBalance||0); horizon.forEach(h=>{ bal += Number(totals[a.id].income[h.key]||0)+Number(totals[a.id].expense[h.key]||0); totals[a.id].balance[h.key]=bal; }); });
   return totals;
 }
 function overallMonthlyTotals(){
-  const totals=accountMonthlyTotals(); const income={}, expense={}, personnel={}, nonPersonnelExpense={}, balance={}; let opening=state.accounts.reduce((s,a)=>s+Number(a.openingBalance||0),0); let running=opening;
+  const totals=accountMonthlyTotals(); const income={}, expense={}, personnel={}, nonPersonnelExpense={}, balance={}; let opening=getActiveAccounts().reduce((s,a)=>s+Number(a.openingBalance||0),0); let running=opening;
   const personnelTotals=computePersonnelTotals();
   horizon.forEach((h,idx)=>{
     income[h.key]=Object.values(totals).reduce((s,t)=>s+Number(t.income[h.key]||0),0);
@@ -955,8 +978,8 @@ function analyzeLiquidity(){
   return {overall,reserves,points,firstNegativeIndex,minPoint,recoveryIndex,criticalStartIndex,positiveRun,status,statusText,bandStates};
 }
 
-function buildPersonnelMonthCell(row, calc, monthIndex){ const cell=(row.months||[])[monthIndex]||makePersonnelMonth(false,''); const explicit=calc.explicit[monthIndex]; const effective=calc.effective[monthIndex]; const inherited=cell.active && explicit==='' && effective>0; const inactive=!cell.active; const visibleValue=cell.active ? (inherited?effective:(cell.value===''?'':cell.value)) : ''; return `<td><div class="personnel-cell"><div style="display:flex;justify-content:space-between;align-items:center"><button class="personnel-toggle ${inactive?'inactive':''}" type="button" onclick="togglePersonnelMonth('${row.id}','${row.type}',${monthIndex})">${inactive?'○':'✓'}</button><div class="personnel-carry">${inherited?'fortgeführt':'&nbsp;'}</div></div><input class="personnel-input ${inactive?'inactive':''}" inputmode="decimal" value="${formatMonthInputValue(visibleValue)}" onchange="updatePersonnelMonthValue('${row.id}','${row.type}',${monthIndex},this.value)"></div></td>`; }
-function renderPersonnel(){ const totals=computePersonnelTotals(); const currentMonthLabel=horizon[0]?.label||''; $('personnelSummary').innerHTML=`<div class="personnel-box"><div class="label">Personalkosten aktiver Monat</div><div class="value">${fmt(totals.currentMonth)}</div><div class="small muted">${currentMonthLabel}</div></div><div class="personnel-box"><div class="label">Jahresstundenbudget Personal</div><div class="value">${formatNumberDE(totals.annualHoursBudget,0)} h</div><div class="small muted">Wochenstunden × 52</div></div><div class="personnel-box"><div class="label">Mitarbeiter</div><div class="value">${state.personnel.employees.length}</div><div class="small muted">aktive und inaktive Datensätze</div></div><div class="personnel-box"><div class="label">12-Monats-Summe</div><div class="value">${fmt(totals.rolling12)}</div><div class="small muted">Personal plus Zusatzkosten</div></div>`; $('togglePersonnelBtn').textContent=state.personnel.collapsed?'Details öffnen':'Details schließen'; $('personnelTableWrap').style.display=state.personnel.collapsed?'none':'block'; if(state.personnel.collapsed){ $('personnelTableWrap').innerHTML=''; return; } const header=horizon.map(h=>`<th>${h.short}</th>`).join(''); const employeeRows=state.personnel.employees.map(row=>{ const calc=totals.rowCalcs.get(row.id); const label=`${row.firstName||''} ${row.lastName||''}`.trim()||'Unbenannt'; return `<tr><td class="personnel-sticky"><div class="personnel-name">${label}</div><div class="personnel-subinputs"><input type="text" value="${String(row.firstName||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" placeholder="Vorname" onchange="updatePersonnelEmployeeField('${row.id}','firstName',this.value)"><input type="text" value="${String(row.lastName||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" placeholder="Nachname" onchange="updatePersonnelEmployeeField('${row.id}','lastName',this.value)"></div><div class="personnel-subinputs single"><input type="number" step="0.1" value="${row.weeklyHours===''?'':Number(row.weeklyHours||0)}" placeholder="Wochenstunden" onchange="updatePersonnelEmployeeField('${row.id}','weeklyHours',this.value)"></div><div class="small muted" style="margin-bottom:6px">Wochenstunden laut Vertrag</div><div class="personnel-mini-actions"><button type="button" class="danger" onclick="deletePersonnelEmployee('${row.id}')">Löschen</button></div></td>${Array.from({length:24},(_,i)=>buildPersonnelMonthCell(row,calc,i)).join('')}<td>${formatNumberDE(calc.annualHours,0)} h</td><td>${fmt(calc.rolling12)}</td></tr>`; }).join('') || `<tr><td class="personnel-sticky muted small">Noch keine Mitarbeiter angelegt.</td><td colspan="26"></td></tr>`; const extraRows=state.personnel.extras.map(row=>{ const calc=totals.rowCalcs.get(row.id); const safe=String(row.label||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;'); return `<tr><td class="personnel-sticky"><div class="personnel-name">${row.label||'Zusatzkosten'}</div><div class="personnel-subinputs single"><input type="text" value="${safe}" placeholder="Bezeichnung" onchange="updatePersonnelExtraLabel('${row.id}',this.value)"></div><div class="personnel-mini-actions"><button type="button" class="danger" onclick="deletePersonnelExtra('${row.id}')">Löschen</button></div></td>${Array.from({length:24},(_,i)=>buildPersonnelMonthCell(row,calc,i)).join('')}<td>–</td><td>${fmt(calc.rolling12)}</td></tr>`; }).join('') || `<tr><td class="personnel-sticky muted small">Noch keine Zusatzkostenzeilen angelegt.</td><td colspan="26"></td></tr>`; $('personnelTableWrap').innerHTML=`<table class="personnel-table"><thead><tr><th class="personnel-sticky">Position</th>${header}<th>Jahresstunden</th><th>12M Summe</th></tr></thead><tbody><tr class="personnel-section"><td colspan="27">Mitarbeiter</td></tr>${employeeRows}<tr class="personnel-section"><td colspan="27">Zusatzkosten</td></tr>${extraRows}<tr class="personnel-summary-row"><td class="personnel-sticky">Gesamtsumme Personalblock</td>${Array.from({length:24},(_,i)=>`<td>${fmt(totals.monthTotals[i])}</td>`).join('')}<td>${formatNumberDE(totals.annualHoursBudget,0)} h</td><td>${fmt(totals.rolling12)}</td></tr></tbody></table>`; }
+function buildPersonnelMonthCell(row, calc, monthIndex){ const cell=(row.months||[])[monthIndex]||makePersonnelMonth(false,''); const explicit=calc.explicit[monthIndex]; const effective=calc.effective[monthIndex]; const inherited=cell.active && explicit==='' && effective>0; const inactive=!cell.active; const visibleValue=cell.active ? (inherited?effective:(cell.value===''?'':cell.value)) : ''; return `<td><div class="personnel-cell"><div style="display:flex;justify-content:space-between;align-items:center"><button class="personnel-toggle ${inactive?'inactive':''}" type="button" onclick="togglePersonnelMonth('${escAttr(row.id)}','${escAttr(row.type)}',${monthIndex})">${inactive?'○':'✓'}</button><div class="personnel-carry">${inherited?'fortgeführt':'&nbsp;'}</div></div><input class="personnel-input ${inactive?'inactive':''}" inputmode="decimal" value="${formatMonthInputValue(visibleValue)}" onchange="updatePersonnelMonthValue('${escAttr(row.id)}','${escAttr(row.type)}',${monthIndex},this.value)"></div></td>`; }
+function renderPersonnel(){ const totals=computePersonnelTotals(); const currentMonthLabel=horizon[0]?.label||''; $('personnelSummary').innerHTML=`<div class="personnel-box"><div class="label">Personalkosten aktiver Monat</div><div class="value">${fmt(totals.currentMonth)}</div><div class="small muted">${currentMonthLabel}</div></div><div class="personnel-box"><div class="label">Jahresstundenbudget Personal</div><div class="value">${formatNumberDE(totals.annualHoursBudget,0)} h</div><div class="small muted">Wochenstunden × 52</div></div><div class="personnel-box"><div class="label">Mitarbeiter</div><div class="value">${state.personnel.employees.length}</div><div class="small muted">aktive und inaktive Datensätze</div></div><div class="personnel-box"><div class="label">12-Monats-Summe</div><div class="value">${fmt(totals.rolling12)}</div><div class="small muted">Personal plus Zusatzkosten</div></div>`; $('togglePersonnelBtn').textContent=state.personnel.collapsed?'Details öffnen':'Details schließen'; $('personnelTableWrap').style.display=state.personnel.collapsed?'none':'block'; if(state.personnel.collapsed){ $('personnelTableWrap').innerHTML=''; return; } const header=horizon.map(h=>`<th>${h.short}</th>`).join(''); const employeeRows=state.personnel.employees.map(row=>{ const calc=totals.rowCalcs.get(row.id); const label=`${row.firstName||''} ${row.lastName||''}`.trim()||'Unbenannt'; return `<tr><td class="personnel-sticky"><div class="personnel-name">${esc(label)}</div><div class="personnel-subinputs"><input type="text" value="${escAttr(row.firstName||'')}" placeholder="Vorname" onchange="updatePersonnelEmployeeField('${escAttr(row.id)}','firstName',this.value)"><input type="text" value="${escAttr(row.lastName||'')}" placeholder="Nachname" onchange="updatePersonnelEmployeeField('${escAttr(row.id)}','lastName',this.value)"></div><div class="personnel-subinputs single"><input type="number" step="0.1" value="${row.weeklyHours===''?'':Number(row.weeklyHours||0)}" placeholder="Wochenstunden" onchange="updatePersonnelEmployeeField('${escAttr(row.id)}','weeklyHours',this.value)"></div><div class="small muted" style="margin-bottom:6px">Wochenstunden laut Vertrag</div><div class="personnel-mini-actions"><button type="button" class="danger" onclick="deletePersonnelEmployee('${escAttr(row.id)}')">Löschen</button></div></td>${Array.from({length:24},(_,i)=>buildPersonnelMonthCell(row,calc,i)).join('')}<td>${formatNumberDE(calc.annualHours,0)} h</td><td>${fmt(calc.rolling12)}</td></tr>`; }).join('') || `<tr><td class="personnel-sticky muted small">Noch keine Mitarbeiter angelegt.</td><td colspan="26"></td></tr>`; const extraRows=state.personnel.extras.map(row=>{ const calc=totals.rowCalcs.get(row.id); const safe=escAttr(row.label||''); return `<tr><td class="personnel-sticky"><div class="personnel-name">${esc(row.label||'Zusatzkosten')}</div><div class="personnel-subinputs single"><input type="text" value="${safe}" placeholder="Bezeichnung" onchange="updatePersonnelExtraLabel('${escAttr(row.id)}',this.value)"></div><div class="personnel-mini-actions"><button type="button" class="danger" onclick="deletePersonnelExtra('${escAttr(row.id)}')">Löschen</button></div></td>${Array.from({length:24},(_,i)=>buildPersonnelMonthCell(row,calc,i)).join('')}<td>–</td><td>${fmt(calc.rolling12)}</td></tr>`; }).join('') || `<tr><td class="personnel-sticky muted small">Noch keine Zusatzkostenzeilen angelegt.</td><td colspan="26"></td></tr>`; $('personnelTableWrap').innerHTML=`<table class="personnel-table"><thead><tr><th class="personnel-sticky">Position</th>${header}<th>Jahresstunden</th><th>12M Summe</th></tr></thead><tbody><tr class="personnel-section"><td colspan="27">Mitarbeiter</td></tr>${employeeRows}<tr class="personnel-section"><td colspan="27">Zusatzkosten</td></tr>${extraRows}<tr class="personnel-summary-row"><td class="personnel-sticky">Gesamtsumme Personalblock</td>${Array.from({length:24},(_,i)=>`<td>${fmt(totals.monthTotals[i])}</td>`).join('')}<td>${formatNumberDE(totals.annualHoursBudget,0)} h</td><td>${fmt(totals.rolling12)}</td></tr></tbody></table>`; }
 function renderHourlyRateModule(){ const activeYear=getActivePersonnelYear(); const formYear=Number($('sh_year').value||activeYear); $('toggleHourlyRateBtn').textContent=state.hourlyRateModule.collapsed?'Details öffnen':'Details schließen'; $('hourlyRateWrap').style.display=state.hourlyRateModule.collapsed?'none':'block'; const current=state.hourlyRateModule.items.find(item=>item.year===state.hourlyRateModule.activeYear); if(!current){ $('activeYearPill').textContent='Kein aktiver Jahresstand'; $('activeRate').textContent='– € / h'; $('activeFormula').textContent='Bitte einen Jahresstand anlegen oder aktivieren.'; } else { $('activeYearPill').textContent=`Aktiv: ${current.year}`; $('activeRate').textContent=`${fmt(current.rate)} / h`; $('activeFormula').textContent=`${fmt(current.costs)} ÷ ${formatNumberDE(current.hours,2)} h`; } const sorted=[...state.hourlyRateModule.items].sort((a,b)=>b.year-a.year); $('hourlyRateArchive').innerHTML=sorted.length?sorted.map(item=>`<article class="archive-item"><div class="archive-top"><div class="archive-year">${item.year}</div>${item.year===state.hourlyRateModule.activeYear?'<div class="archive-badge">Aktiver Wert</div>':''}</div><div class="archive-rate">${fmt(item.rate)} / h</div><div class="archive-meta"><div>Jahreskosten: ${fmt(item.costs)}</div><div>Jahresstunden: ${formatNumberDE(item.hours,2)} h</div></div><div class="archive-actions"><button class="secondary" type="button" onclick="editHourlyRateItem(${item.year})">Bearbeiten</button><button class="secondary" type="button" onclick="activateHourlyRateItem(${item.year})" ${item.year===state.hourlyRateModule.activeYear?'disabled':''}>Aktiv setzen</button><button class="danger" type="button" onclick="deleteHourlyRateItem(${item.year})">Löschen</button></div></article>`).join(''):'<div class="empty">Noch kein Jahresstand gespeichert.</div>'; if(!$('sh_year').value) $('sh_year').value=String(formYear); syncHourlyRateFormFromPersonnel(false); }
 function updateHourlyRatePreview(){ const costs=parseLooseNumber($('sh_costs').value); const hours=parseLooseNumber($('sh_hours').value); const rate=computeHourlyRate(costs,hours); $('previewRate').textContent=rate===null?'– € / h':`${fmt(rate)} / h`; }
 function saveHourlyRateItem(){ const year=parseInt($('sh_year').value,10); const costs=parseLooseNumber($('sh_costs').value); let hours=parseLooseNumber($('sh_hours').value); const activeYear=getActivePersonnelYear(); if((hours===''||!Number.isFinite(hours)) && year===activeYear) hours=computePersonnelTotals().annualHoursBudget; if(!Number.isInteger(year)||year<2000||year>2100){ $('hourlyRateError').textContent='Bitte ein plausibles Jahr eingeben.'; return; } if(!Number.isFinite(costs)||costs<=0){ $('hourlyRateError').textContent='Bitte positive Jahresgesamtkosten eingeben.'; return; } if(!Number.isFinite(hours)||hours<=0){ $('hourlyRateError').textContent='Bitte positive Jahresstunden eingeben.'; return; } const rate=computeHourlyRate(costs,hours); const existingIndex=state.hourlyRateModule.items.findIndex(item=>item.year===year); const payload={year,costs,hours,rate,updatedAt:new Date().toISOString()}; if(existingIndex>=0) state.hourlyRateModule.items[existingIndex]=payload; else state.hourlyRateModule.items.push(payload); if(!state.hourlyRateModule.activeYear || state.hourlyRateModule.activeYear===year || state.hourlyRateModule.items.length===1) state.hourlyRateModule.activeYear=year; $('hourlyRateError').textContent=''; renderAll(); }
@@ -974,13 +997,32 @@ function renderDashboard(){
   $('dashboardStatus').innerHTML=`<div class="status-line ${a.status}">${a.statusText}<div class="small muted" style="margin-top:6px">Tiefpunkt verfügbare Liquidität: ${fmt(a.minPoint.value)} · ${a.minPoint.label}</div></div>`;
   $('reachabilityBand').innerHTML=`<div class="reach-band">${a.bandStates.map(p=>`<div class="reach-item ${p.cls} ${p.breakpoint?'breakpoint':''}"><div class="reach-month">${p.short}</div><div class="reach-value">${fmt(p.value)}</div></div>`).join('')}</div>`;
 }
-function renderAccounts(){ $('accountList').innerHTML=state.accounts.map(a=>`<div class="account-item"><div><strong>${a.name}</strong><div class="muted small">Kontostand</div></div><div class="right-tools"><span>${fmt(a.openingBalance)}</span><button class="inline-btn" onclick="editAccount('${a.id}')">Bearbeiten</button><button class="inline-btn" onclick="deleteAccount('${a.id}')">Löschen</button></div></div>`).join(''); }
+function renderAccounts(){
+  const activeTotal=getActiveAccounts().reduce((sum,a)=>sum+Number(a.openingBalance||0),0);
+  let html = `<div class="account-item"><div><strong><button class="inline-btn" type="button" onclick="toggleAccountsSection()">${state.ui.showAccounts ? '▾' : '▸'} Konten</button></strong><div class="muted small">Summe aktive Konten</div></div><div class="right-tools"><span>${fmt(activeTotal)}</span></div></div>`;
+  if(state.ui.showAccounts){
+    html += state.accounts.length ? state.accounts.map(a=>`<div class="account-item">
+      <div>
+        <strong>${esc(a.name)}</strong> ${a.active===false?'<span class="pill">inaktiv</span>':''}
+        <div class="muted small">Kontostand</div>
+        ${a.note?`<div class="small muted" style="margin-top:6px">Interne Notiz: ${esc(a.note)}</div>`:''}
+      </div>
+      <div class="right-tools">
+        <span>${fmt(a.openingBalance)}</span>
+        <button class="inline-btn" onclick="toggleAccountActive('${escAttr(a.id)}')">${a.active===false?'Aktivieren':'Deaktivieren'}</button>
+        <button class="inline-btn" onclick="editAccount('${escAttr(a.id)}')">Bearbeiten</button>
+        <button class="inline-btn" onclick="deleteAccount('${escAttr(a.id)}')">Löschen</button>
+      </div>
+    </div>`).join('') : `<div class="muted small">Noch keine Konten angelegt.</div>`;
+  }
+  $('accountList').innerHTML=html;
+}
 function renderReserves(){
   const total = reserveTotal();
   let html = `<div class="reserve-item"><div><strong><button class="inline-btn" type="button" onclick="toggleReservesSection()">${state.ui.showReserves ? '▾' : '▸'} Rücklagen</button></strong><div class="muted small">gesamt gebunden</div></div><div class="right-tools"><span>${fmt(total)}</span></div></div>`;
   if(state.ui.showReserves){
     html += state.reserves.length
-      ? state.reserves.map(r=>`<div class="reserve-item"><div><strong>${r.name}</strong><div class="muted small">Gebunden</div></div><div class="right-tools"><span>${fmt(r.value)}</span><button class="inline-btn" onclick="editReserve('${r.id}')">Bearbeiten</button><button class="inline-btn" onclick="deleteReserve('${r.id}')">Löschen</button></div></div>`).join('')
+      ? state.reserves.map(r=>`<div class="reserve-item"><div><strong>${esc(r.name)}</strong><div class="muted small">Gebunden</div></div><div class="right-tools"><span>${fmt(r.value)}</span><button class="inline-btn" onclick="editReserve('${r.id}')">Bearbeiten</button><button class="inline-btn" onclick="deleteReserve('${r.id}')">Löschen</button></div></div>`).join('')
       : `<div class="muted small">Noch keine Rücklagen angelegt.</div>`;
   }
   $('reserveList').innerHTML = html;
@@ -1014,14 +1056,14 @@ function renderTable(){
       const groupKey=projectGroupKey(head);
       const isOpen=!!(state.ui.openProjectGroups && state.ui.openProjectGroups[groupKey]);
 
-      html += `<tr class="project-head-row ${rowClass}"><td class="sticky"><strong>${head.projectNumber ? head.projectNumber + ' – ' : ''}${head.name}</strong><div class="muted small">${head.status} · ${lines.length} Zeile(n)</div><div class="right-tools"><button class="inline-btn toggle-project-group-btn" type="button" data-group-key="${encodeURIComponent(groupKey)}">${isOpen ? '▾ Details' : '▸ Details'}</button><button class="inline-btn" onclick="addProjectLine('${head.id}')">+ Zeile</button></div></td><td class="sticky2">${sum.account}</td><td class="sticky3">${fmt(sum.totalBudget)}</td><td class="sticky4">${fmt(sum.invoiced)}</td><td class="sticky5">${fmt(open)}</td><td class="sticky6 ${Math.abs(diff)>1 ? 'warning':''}">${fmt(diff)}</td>`;
+      html += `<tr class="project-head-row ${rowClass}"><td class="sticky"><strong>${esc(head.projectNumber ? head.projectNumber + ' – ' : '')}${esc(head.name)}</strong><div class="muted small">${esc(head.status)} · ${lines.length} Zeile(n)</div><div class="right-tools"><button class="inline-btn toggle-project-group-btn" type="button" data-group-key="${encodeURIComponent(groupKey)}">${isOpen ? '▾ Details' : '▸ Details'}</button><button class="inline-btn" onclick="addProjectLine('${head.id}')">+ Zeile</button></div></td><td class="sticky2">${esc(sum.account)}</td><td class="sticky3">${fmt(sum.totalBudget)}</td><td class="sticky4">${fmt(sum.invoiced)}</td><td class="sticky5">${fmt(open)}</td><td class="sticky6 ${Math.abs(diff)>1 ? 'warning':''}">${fmt(diff)}</td>`;
       html += horizon.map(h=>`<td>${fmt(lines.reduce((s,p)=>s+Number((p.manualPlan||{})[h.key]||0),0))}</td>`).join('');
       html += '</tr>';
 
       if(isOpen){
         lines.sort((a,b)=>Number(a.lineOrder||0)-Number(b.lineOrder||0)).forEach(p=>{
           const planned=projectPlanned(p), openLine=projectOpen(p), diffLine=planned-openLine, account=state.accounts.find(a=>a.id===p.accountId)?.name||'';
-          html += `<tr class="project-line-row ${rowClass}"><td class="sticky"><strong>${p.lineLabel}</strong><div class="muted small">${p.type}${p.note?` · ${p.note}`:''}</div><div class="right-tools"><button class="inline-btn" onclick="editProject('${p.id}')">Bearbeiten</button><button class="inline-btn" onclick="deleteProject('${p.id}')">Löschen</button></div></td><td class="sticky2">${account}</td><td class="sticky3">${fmt(p.totalBudget)}</td><td class="sticky4">${fmt(p.invoicedAmount)}</td><td class="sticky5">${fmt(openLine)}</td><td class="sticky6 ${Math.abs(diffLine)>1 ? 'warning':''}">${fmt(diffLine)}</td>`;
+          html += `<tr class="project-line-row ${rowClass}"><td class="sticky"><strong>${esc(p.lineLabel)}</strong><div class="muted small">${esc(p.type)}${p.note?` · ${esc(p.note)}`:''}</div><div class="right-tools"><button class="inline-btn" onclick="editProject('${p.id}')">Bearbeiten</button><button class="inline-btn" onclick="deleteProject('${p.id}')">Löschen</button></div></td><td class="sticky2">${esc(account)}</td><td class="sticky3">${fmt(p.totalBudget)}</td><td class="sticky4">${fmt(p.invoicedAmount)}</td><td class="sticky5">${fmt(openLine)}</td><td class="sticky6 ${Math.abs(diffLine)>1 ? 'warning':''}">${fmt(diffLine)}</td>`;
           html += horizon.map(h=>{ const marked=!!(p.invoiceMarks&&p.invoiceMarks[h.key]); return `<td><div class="month-cell"><input class="cell-input ${marked?'marked':''}" type="number" step="0.01" value="${Number((p.manualPlan||{})[h.key]||0).toFixed(0)}" onchange="updateProjectMonth('${p.id}','${h.key}',this.value)"><button type="button" class="inline-btn ${marked?'positive':''}" title="Rechnung gestellt markieren" onclick="toggleProjectInvoiceMark('${p.id}','${h.key}')">${marked?'✓':'○'}</button></div></td>`; }).join('');
           html += '</tr>';
         });
@@ -1044,13 +1086,13 @@ function renderTable(){
       const groupKey=expenseGroupKey(head);
       const isOpen=!!(state.ui.openExpenseGroups && state.ui.openExpenseGroups[groupKey]);
 
-      html += `<tr class="expense-head-row"><td class="sticky"><strong>${title}</strong><div class="muted small">${lines.length} Zeile(n)</div><div class="right-tools"><button class="inline-btn toggle-expense-group-btn" type="button" data-group-key="${encodeURIComponent(groupKey)}">${isOpen ? '▾ Details' : '▸ Details'}</button><button class="inline-btn" onclick="addExpenseLine('${head.id}')">+ Zeile</button></div></td><td class="sticky2">${sum.category}</td><td class="sticky3 negative">${fmt(-sum.total)}</td><td class="sticky4">Gruppe</td><td class="sticky5"></td><td class="sticky6"></td>`;
+      html += `<tr class="expense-head-row"><td class="sticky"><strong>${esc(title)}</strong><div class="muted small">${lines.length} Zeile(n)</div><div class="right-tools"><button class="inline-btn toggle-expense-group-btn" type="button" data-group-key="${encodeURIComponent(groupKey)}">${isOpen ? '▾ Details' : '▸ Details'}</button><button class="inline-btn" onclick="addExpenseLine('${head.id}')">+ Zeile</button></div></td><td class="sticky2">${esc(sum.category)}</td><td class="sticky3 negative">${fmt(-sum.total)}</td><td class="sticky4">Gruppe</td><td class="sticky5"></td><td class="sticky6"></td>`;
       html += horizon.map(h=>`<td class="negative">${fmt(lines.reduce((s,e)=>s+Number((e.months||{})[h.key]||0),0))}</td>`).join('');
       html += '</tr>';
 
       if(isOpen){
         lines.sort((a,b)=>Number(a.lineOrder||0)-Number(b.lineOrder||0)).forEach(e=>{
-          html += `<tr class="expense-line-row"><td class="sticky"><strong>${e.lineLabel}</strong><div class="muted small">${e.note||''}</div><div class="right-tools"><button class="inline-btn" onclick="editExpense('${e.id}')">Bearbeiten</button><button class="inline-btn" onclick="deleteExpense('${e.id}')">Löschen</button></div></td><td class="sticky2">${e.category}</td><td class="sticky3 negative">${expensePeriodText(e)}<div class="muted small">gesamt ${fmt(Math.abs(expensePlanned(e)))}</div></td><td class="sticky4">${e.type==='one-time'?'einmalig':(e.rhythm==='monthly'?'monatlich':e.rhythm==='quarterly'?'vierteljährlich':'jährlich')}</td><td class="sticky5"></td><td class="sticky6"></td>`;
+          html += `<tr class="expense-line-row"><td class="sticky"><strong>${esc(e.lineLabel)}</strong><div class="muted small">${esc(e.note||'')}</div><div class="right-tools"><button class="inline-btn" onclick="editExpense('${e.id}')">Bearbeiten</button><button class="inline-btn" onclick="deleteExpense('${e.id}')">Löschen</button></div></td><td class="sticky2">${esc(e.category)}</td><td class="sticky3 negative">${expensePeriodText(e)}<div class="muted small">gesamt ${fmt(Math.abs(expensePlanned(e)))}</div></td><td class="sticky4">${e.type==='one-time'?'einmalig':(e.rhythm==='monthly'?'monatlich':e.rhythm==='quarterly'?'vierteljährlich':'jährlich')}</td><td class="sticky5"></td><td class="sticky6"></td>`;
           html += horizon.map(h=>`<td><input class="cell-input" type="number" step="0.01" value="${Math.abs(Number((e.months||{})[h.key]||0)).toFixed(0)}" onchange="updateExpenseMonth('${e.id}','${h.key}',this.value)"></td>`).join('');
           html += '</tr>';
         });
@@ -1071,9 +1113,6 @@ function renderTable(){
   renderPersonnel();
   renderHourlyRateModule();
   renderTable();
-
-  const reservesBtn = document.getElementById('toggleReservesBtn');
-  if(reservesBtn){ reservesBtn.addEventListener('click', toggleReservesSection); }
 
   document.querySelectorAll('.toggle-project-group-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -1105,8 +1144,30 @@ window.editExpense=(id)=>{ const e=state.expenses.find(x=>x.id===id); if(!e) ret
 window.deleteExpense=(id)=>{ const target=state.expenses.find(e=>e.id===id); if(!target) return; const group=state.expenses.filter(e=>expenseGroupKey(e)===expenseGroupKey(target)); const msg=group.length===1?'Dies ist die letzte Zeile der Ausgabe. Wirklich die gesamte Ausgabe löschen?':'Ausgabezeile wirklich löschen?'; if(!confirm(msg)) return; saveCheckpoint('Ausgabe gelöscht'); const oldNumber=target.expenseNumber, oldLabel=target.label; state.expenses=state.expenses.filter(e=>e.id!==id); renumberExpenseGroupLines(oldNumber, oldLabel); renderAll(); };
 window.updateExpenseMonth=(id,key,val)=>{ const e=state.expenses.find(x=>x.id===id); if(!e) return; e.months=e.months||{}; e.months[key]=-Math.abs(Number(val||0)); renderAll(); };
 
-window.editAccount=(id)=>{ const a=state.accounts.find(x=>x.id===id); if(!a) return; editingAccountId=id; $('accountDialogTitle').textContent='Konto bearbeiten'; $('a_name').value=a.name; $('a_balance').value=a.openingBalance; $('accountDialog').showModal(); };
-window.deleteAccount=(id)=>{ if(state.accounts.length<=1){ alert('Mindestens ein Konto muss bestehen bleiben.'); return; } if(!confirm('Konto wirklich löschen?')) return; saveCheckpoint('Konto gelöscht'); state.accounts=state.accounts.filter(a=>a.id!==id); renderAll(); };
+window.editAccount=(id)=>{ const a=state.accounts.find(x=>x.id===id); if(!a) return; editingAccountId=id; $('accountDialogTitle').textContent='Konto bearbeiten'; $('a_name').value=a.name; $('a_balance').value=a.openingBalance; $('a_active').checked=a.active!==false; $('a_note').value=a.note||''; $('accountDialog').showModal(); };
+window.deleteAccount=(id)=>{
+  const target=state.accounts.find(a=>a.id===id);
+  if(!target) return;
+  if(state.accounts.length<=1){ alert('Mindestens ein Konto muss bestehen bleiben.'); return; }
+  const fallback=state.accounts.find(a=>a.id!==id && a.active!==false) || state.accounts.find(a=>a.id!==id);
+  if(!confirm('Konto wirklich löschen? Zugeordnete Projekte werden auf ein anderes vorhandenes Konto umgestellt.')) return;
+  saveCheckpoint('Konto gelöscht');
+  state.projects=state.projects.map(p=>p.accountId===id?Object.assign({},p,{accountId:fallback.id}):p);
+  state.accounts=state.accounts.filter(a=>a.id!==id);
+  renderAll();
+};
+window.toggleAccountActive=(id)=>{
+  const target=state.accounts.find(a=>a.id===id);
+  if(!target) return;
+  const activeCount=getActiveAccounts().length;
+  if(target.active!==false && activeCount<=1){
+    alert('Mindestens ein aktives Konto muss bestehen bleiben.');
+    return;
+  }
+  saveCheckpoint(target.active===false?'Konto aktiviert':'Konto deaktiviert');
+  target.active=target.active===false;
+  renderAll();
+};
 
 window.editReserve=(id)=>{ const r=state.reserves.find(x=>x.id===id); if(!r) return; editingReserveId=id; $('reserveDialogTitle').textContent='Rücklage bearbeiten'; $('r_name').value=r.name; $('r_value').value=r.value; $('reserveDialog').showModal(); };
 window.deleteReserve=(id)=>{ if(!confirm('Rücklage wirklich löschen?')) return; saveCheckpoint('Rücklage gelöscht'); state.reserves=state.reserves.filter(r=>r.id!==id); renderAll(); };
@@ -1117,8 +1178,8 @@ $('saveProjectBtn').onclick=()=>{ const prev=editingProjectId ? state.projects.f
 $('addExpenseBtn').onclick=()=>{ editingExpenseId=null; $('expenseDialogTitle').textContent='Ausgabe / Zeile anlegen'; $('e_number').value=''; $('e_category').value='Miete'; $('e_label').value=''; $('e_lineLabel').value='Zeile 1'; $('e_amount').value='0'; $('e_type').value='fixed'; $('e_rhythm').value='monthly'; $('e_startMonth').innerHTML=monthOptions(horizon[0].month); $('e_startYear').innerHTML=yearOptions(horizon[0].year); $('e_endMonth').innerHTML=monthOptions(horizon[horizon.length-1].month); $('e_endYear').innerHTML=yearOptions(horizon[horizon.length-1].year); $('expenseDialog').showModal(); };
 $('saveExpenseBtn').onclick=()=>{ const prev=editingExpenseId ? state.expenses.find(x=>x.id===editingExpenseId) : null; const e={id:editingExpenseId||uid(), expenseNumber:$('e_number').value===''?'':Number($('e_number').value), category:$('e_category').value, label:$('e_label').value.trim(), lineOrder:(prev&&prev.lineOrder)?prev.lineOrder:1, lineLabel:$('e_lineLabel').value.trim()||'Zeile 1', amount:Number($('e_amount').value||0), type:$('e_type').value, rhythm:$('e_rhythm').value}; const sy=Number($('e_startYear').value||horizon[0].year), sm=Number($('e_startMonth').value||horizon[0].month), ey=Number($('e_endYear').value||horizon[horizon.length-1].year), em=Number($('e_endMonth').value||horizon[horizon.length-1].month); Object.assign(e,{startYear:sy,startMonth:sm,endYear:ey,endMonth:em}); saveCheckpoint(editingExpenseId?'Ausgabe geändert':'Ausgabe angelegt'); const expense=ensureExpense(e); expense.months=expenseMonthMap(expense); if(editingExpenseId){ state.expenses=state.expenses.map(x=>x.id===editingExpenseId?expense:x); } else { expense.lineOrder=nextExpenseLineOrder(expense); if(!$('e_lineLabel').value.trim()) expense.lineLabel=`Zeile ${expense.lineOrder}`; state.expenses.push(expense); } $('expenseDialog').close(); renderAll(); };
 
-$('addAccountBtn').onclick=()=>{ editingAccountId=null; $('accountDialogTitle').textContent='Konto anlegen'; $('a_name').value=''; $('a_balance').value=''; $('accountDialog').showModal(); };
-$('saveAccountBtn').onclick=()=>{ const name=$('a_name').value.trim(); if(!name){ alert('Kontoname fehlt.'); return; } saveCheckpoint(editingAccountId?'Konto geändert':'Konto angelegt'); const account={id:editingAccountId||uid(), name, openingBalance:Number($('a_balance').value||0)}; if(editingAccountId) state.accounts=state.accounts.map(a=>a.id===editingAccountId?account:a); else state.accounts.push(account); $('accountDialog').close(); renderAll(); };
+$('addAccountBtn').onclick=()=>{ editingAccountId=null; $('accountDialogTitle').textContent='Konto anlegen'; $('a_name').value=''; $('a_balance').value=''; $('a_active').checked=true; $('a_note').value=''; $('accountDialog').showModal(); };
+$('saveAccountBtn').onclick=()=>{ const name=$('a_name').value.trim(); if(!name){ alert('Kontoname fehlt.'); return; } saveCheckpoint(editingAccountId?'Konto geändert':'Konto angelegt'); const account={id:editingAccountId||uid(), name, openingBalance:Number($('a_balance').value||0), active:!!$('a_active').checked, note:$('a_note').value.trim()}; if(editingAccountId) state.accounts=state.accounts.map(a=>a.id===editingAccountId?account:a); else state.accounts.push(account); $('accountDialog').close(); renderAll(); };
 
 $('addReserveBtn').onclick=()=>{ editingReserveId=null; $('reserveDialogTitle').textContent='Rücklage anlegen'; $('r_name').value=''; $('r_value').value=''; $('reserveDialog').showModal(); };
 $('saveReserveBtn').onclick=()=>{ const name=$('r_name').value.trim(); if(!name){ alert('Name fehlt.'); return; } saveCheckpoint(editingReserveId?'Rücklage geändert':'Rücklage angelegt'); const reserve={id:editingReserveId||uid(), name, value:Number($('r_value').value||0)}; if(editingReserveId) state.reserves=state.reserves.map(r=>r.id===editingReserveId?reserve:r); else state.reserves.push(reserve); $('reserveDialog').close(); renderAll(); };
@@ -1139,7 +1200,22 @@ $('toggleCompleted').onchange=e=>{ state.ui.showCompleted=!!e.target.checked; re
 $('nextMonthBtn').onclick=()=>{ saveCheckpoint('Monat weitergeschoben'); const moved=addMonths(state.ui.baseYear, state.ui.baseMonth,1); state.ui.baseYear=moved.year; state.ui.baseMonth=moved.month; renderAll(); };
 $('exportBtn').onclick=()=>{ const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='buero_cashflow_integration_v1.json'; a.click(); URL.revokeObjectURL(url); };
 $('importBtn').onclick=()=>$('importFile').click();
-$('importFile').onchange=async e=>{ const file=e.target.files[0]; if(!file) return; const txt=await file.text(); const data=JSON.parse(txt); saveCheckpoint('Import'); applyLoadedState(data); renderAll(); e.target.value=''; };
+$('importFile').onchange=async e=>{
+  const file=e.target.files[0];
+  if(!file) return;
+  try{
+    const txt=await file.text();
+    const data=JSON.parse(txt);
+    saveCheckpoint('Import');
+    applyLoadedState(data);
+    renderAll();
+  } catch(err){
+    alert('Import fehlgeschlagen. Die JSON-Datei ist beschädigt oder hat ein ungültiges Format.');
+    console.error('Importfehler', err);
+  } finally {
+    e.target.value='';
+  }
+};
 $('resetBtn').onclick=()=>{ if(!confirm('Wirklich alles löschen?')) return; saveCheckpoint('Alles gelöscht'); applyLoadedState(null); renderAll(); };
 $('undoBtn').onclick=undoAction; $('redoBtn').onclick=redoAction;
 
